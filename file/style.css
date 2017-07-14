@@ -7,7 +7,7 @@ a {color: #404040;}
 a:hover {color: #404040;transition-property: all;transition-duration: 0.3s;transition-timing-function: linear;}
 a.none:hover {text-decoration: none;}
 
-.box1 {width:30%; margin-left:11%; color:#000000}
+.box1 {width:80%; margin-left:11%; color:#FFFFFF}
 
 /* Header */
 .top {background-color: #404040;padding: 5px 0;color: #fff;}
@@ -114,7 +114,7 @@ p.text {color: #666;}
 ul.big li {float: left;width: 49%;}
 ul.big li:nth-child(2n) {margin-left: 2%;}
 
-@media (max-width:462px) {.fbox:last-child {margin-top: 20px;float: left;width: 100%;}}
+@media (max-width : 1303px ){.fbox:last-child {margin-top: 20px;float: left;width: 100%;}}
 
 /* Maillist */
 .login-form-1 {max-width: 300px;border-radius: 5px;display: inline-block;}
@@ -171,7 +171,7 @@ ul.big li:nth-child(2n) {margin-left: 2%;}
 .sidebar ul li a:hover {background-color: #005FA6;color: #FFFFFF;text-decoration: none;transition-property: all;transition-duration: 0.2s;transition-timing-function: linear;}
 
 /* Responsive */
-@media screen and (max-width:462px) {
+@media screen and (max-width : 1303px ){
     .top {text-align: center;}.top ul.list-inline{float: none !important;text-align: center;}
     .hero_content {padding: 80px 0;}
     .hero_content h1 {font-size: 32px;}
