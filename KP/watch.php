@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <?php
     include 'connection.php';
+
+    $idv = $_GET['idv'];
+    $query = "select * from video where id_v=".$idv;
+    $result = mysqli_query($con, $query);
+    $video = mysqli_fetch_assoc($result)
 ?>
 <html lang="en">
 <head>
@@ -40,76 +45,52 @@
 			</div>
 		</nav>        
     </header>
-    <div class="bread_area" style="background-color:#e6e6e6; margin-bottom:20px; height:45px;"> </div>   
+    <div class="bread_area" style="background-color:#e6e6e6; margin-bottom:20px;"> 
+    	<!--	<div class="collapse navbar-collapse id="bs-navbar-collapse"  style="margin-left:6%">
+                    <ul class="nav navbar-nav main-navbar-nav">
+                        <li class="active"><a href="index.html" title="">HOME</a></li>
+                        <li class="dropdown">
+                            <a href="#" title="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">DROPDOWN MENU <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#" title="">SUB MENU 1</a></li>
+                                <li><a href="#" title="">SUB MENU 2</a></li>
+                                <li><a href="#" title="">SUB MENU 3</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="page.html" title="">PAGE</a></li>
+                        <li><a href="category.html" title="">CATEGORY</a></li>
+                        <li><a href="#" title="">MENU ITEM</a></li>
+                        <li><a href="#" title="">MENU ITEM</a></li>
+                    </ul>                           
+                </div> -->
+    </div>   
     <main class="site-main category-main">
         <div class="container">
             <div class="row">
                 <section class="category-content col-sm-9">
-                    <h2 class="category-title">Video Terbaru</h2>
+                 <!--   <h2 class="category-title">Putar Video</h2> -->
                     <ul class="media-list">
-                    <?php
-                        $query = "select * from video";
-                        $result = mysqli_query($con, $query);
-                        while($row = mysqli_fetch_assoc($result))
-                        {
-                    ?>
                         <li class="media">
                             <div class="media-left">
-                                <a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post">
-                                    <video src="videos/<?php echo $row['nama_v']; ?>" type="video/mp4" width="256px">
-                                </a>
+                                <video src="videos/<?php echo $video['nama_v']; ?>" type="video/mp4" width="720px" controls>
                             </div>
-                            <div class="media-body">
-                                <h3 class="media-heading"><a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post Title"><?php $name=pathinfo($row['nama_v']); echo $name['filename']; ?></a></h3>
-                                <p><?php echo $row['deskripsi_v']; ?></p>
-                                <aside class="meta category-meta">
-                                    <div class="pull-left">
-                                        <div class="arc-comment"><em class="fa fa-eye"></em> <?php echo $row['lihat_v']; ?></div>
-                                        <div class="arc-date"><?php echo $row['tanggal_v']; ?></div>
-                                    </div>
-                                </aside>                                
-                            </div>
-                        </li>
-                        <!-- <li class="media">
-                            <div class="media-left">
-                                <a href="#" title="Post">
-                                    <video src="videos/vid5.mp4" type="video/mp4" width="256px">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <h3 class="media-heading"><a href="#" title="Post Title">Judul Video</a></h3>
-                                <p>deskripsi video ( jika ada ).</p>
-                                <aside class="meta category-meta">
-                                    <div class="pull-left">
-                                        <div class="arc-comment"><em class="fa fa-eye"></em> 0</div>
-                                        <div class="arc-date">10/15/2016</div>
-                                    </div>
-                                <div class="pull-right">
-                                        <ul class="arc-share">
-                                            <li><a href="#" title="Post"><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href="#" title="Post"><i class="fa fa-twitter"></i></a></li>
-                                            <li><a href="#" title="Post"><i class="fa fa-linkedin"></i></a></li>
-                                            <li><a href="#" title="Post"><i class="fa fa-google-plus"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </aside>                                
-                            </div>
-                        </li> -->
-                    <?php } ?>                          
-                    </ul>                    
+                        </li>                        
+                    </ul>
+                    <div class="media-body">
+                                <p style="font-size:30px; color:#55555"><b><?php $vname=pathinfo($video['nama_v']); echo $vname['filename']; ?></b></p>
+                                <p><?php echo $video['deskripsi_v']; ?></p>                                    
+                     </div>
+                  <a href="videos/<?php echo $video['nama_v']; ?>" download><button type="button" class="btn btn-success">Download</button></a>
                 </section>
+                
                 <aside class="sidebar col-sm-3">
                     <div class="widget">
                         <h4>Kategori</h4>
                         <ul>
-                            <?php
-                                $query = "select * from kategori";
-                                $result = mysqli_query($con, $query);
-                                while($row = mysqli_fetch_assoc($result))
-                                {
-                            ?>
-                            <li><a href="#" title=""><?php echo $row['nama_k']; ?></a></li>
-                            <?php } ?>
+                            <!--<li class="current"><a href="#" title="">Kategori 1</a></li> -->
+                            <li><a href="#" title="">Kategori 2</a></li>
+                            <li><a href="#" title="">Kategori 3</a></li>
+                            <li><a href="#" title="">Kategori 4</a></li>
                         </ul>
                     </div>
                 </aside>
