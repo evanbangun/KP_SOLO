@@ -14,7 +14,7 @@
     
     if($row = mysqli_fetch_assoc($result))
     {
-      echo "<script type='text/javascript'>alert('Kategori sudah ada')</script>";
+      echo "<script type='text/javfascript'>alert('Kategori sudah ada')</script>";
     }
     else
     {
@@ -78,7 +78,7 @@
                 ?>
                 <tr>
                   <td><?php echo $row['nama_k']; ?></td>
-                  <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i><i class="fa fa-times" aria-hidden="true" style="padding-left:10px"></i></td>
+                  <td><i id="modifikasi" class="fa fa-pencil-square-o" aria-hidden="true"></i><i class="fa fa-times" aria-hidden="true" style="padding-left:10px"></i></td>
                 </tr>
                 <?php } ?>
               </tbody>
@@ -126,7 +126,7 @@
 		var span = document.getElementById("close");
 		var span2 = document.getElementById("close2");
 		
-		var modifikasi = document.getElementsByClassName("fa fa-pencil-square-o");
+		var modifikasi = document.getElementById("fa fa-pencil-square-o");
 		
 		// When the user clicks the button, open the modal 
 		btn.onclick = function() {
@@ -142,7 +142,7 @@
 			modal2.style.display = "none";
 			
 		}
-		modifikasi[0].onclick = function() {
+		modifikasi.onclick = function() {
 			modal2.style.display = "block";
 		}
 		
