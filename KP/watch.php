@@ -3,9 +3,11 @@
     include 'connection.php';
 
     $idv = $_GET['idv'];
+    $query = "update video set lihat_v=lihat_v+1 where id_v=".$idv;
+    $result = mysqli_query($con, $query);
     $query = "select * from video where id_v=".$idv;
     $result = mysqli_query($con, $query);
-    $video = mysqli_fetch_assoc($result)
+    $video = mysqli_fetch_assoc($result);
 ?>
 <html lang="en">
 <head>
@@ -34,7 +36,7 @@
 					<span class="sr-only">Toggle Navigation</span>
 					<i class="fa fa-bars"></i>
 				</button>
-				<a href="index.html" class="navbar-brand">
+				<a href="index.php" class="navbar-brand">
 					<img style="margin-bottom:10px; margin-top:10px" src="img/logo.png" alt="Post">
 				</a>
                 <div class="box1">
@@ -72,7 +74,7 @@
                     <ul class="media-list">
                         <li class="media">
                             <div class="media-left">
-                                <video src="videos/<?php echo $video['nama_v']; ?>" type="video/mp4" width="720px" controls>
+                                <video src="videos/<?php echo $video['nama_v']; ?>" type="video/mp4" width="720px" controls controlsList="nodownload">
                             </div>
                         </li>                        
                     </ul>
@@ -80,19 +82,30 @@
                                 <p style="font-size:30px; color:#55555"><b><?php $vname=pathinfo($video['nama_v']); echo $vname['filename']; ?></b></p>
                                 <p><?php echo $video['deskripsi_v']; ?></p>                                    
                      </div>
+                     <div class="arc-comment"><em class="fa fa-eye"></em> <?php echo $video['lihat_v']; ?></div>
                   <a href="videos/<?php echo $video['nama_v']; ?>" download><button type="button" class="btn btn-success">Download</button></a>
                 </section>
-                
                 <aside class="sidebar col-sm-3">
-                    <div class="widget">
-                        <h4>Kategori</h4>
-                        <ul>
-                            <!--<li class="current"><a href="#" title="">Kategori 1</a></li> -->
-                            <li><a href="#" title="">Kategori 2</a></li>
-                            <li><a href="#" title="">Kategori 3</a></li>
-                            <li><a href="#" title="">Kategori 4</a></li>
-                        </ul>
+                	<div class="widget">
+                		<h4>Video Berkategori Sama</h4>
+                	</div>
+                    <?php
+                        $query = "select * from video where kategori_v=".$video['kategori_v']." and id_v !=".$video['id_v']." limit 3";
+                        $result = mysqli_query($con, $query);
+                        while($row = mysqli_fetch_assoc($result))
+                        {
+                    ?>
+                    <div class="media">
+                		<div class="media-left">
+                			<a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post">
+                   	 			<video src="videos/<?php echo $row['nama_v']; ?>" type="video/mp4" width="144px">
+                   	 		</a>
+	          			</div>
+                    	<div class="media-body">
+            				<p class="media-heading"><a href="watch.php?idv=<?php echo $row['id_v']; ?>"><?php $name=pathinfo($row['nama_v']); echo $name['filename']; ?></a></p>
+                   		</div>
                     </div>
+                    <?php } ?>
                 </aside>
             </div>
         </div>

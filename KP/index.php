@@ -29,7 +29,7 @@
 					<span class="sr-only">Toggle Navigation</span>
 					<i class="fa fa-bars"></i>
 				</button>
-				<a href="index.html" class="navbar-brand">
+				<a href="index.php" class="navbar-brand">
 					<img style="margin-bottom:10px; margin-top:10px" src="img/logo.png" alt="Post">
 				</a>
                 <div class="box1">
@@ -48,7 +48,7 @@
                     <h2 class="category-title">Video Terbaru</h2>
                     <ul class="media-list">
                     <?php
-                        $query = "select * from video";
+                        $query = "select * from video order by tanggal_v desc limit 5";
                         $result = mysqli_query($con, $query);
                         while($row = mysqli_fetch_assoc($result))
                         {
@@ -60,7 +60,7 @@
                                 </a>
                             </div>
                             <div class="media-body">
-                                <h3 class="media-heading"><a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post Title"><?php $name=pathinfo($row['nama_v']); echo $name['filename']; ?></a></h3>
+                                <h3 class="media-heading"><a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post Title"><?php $name=pathinfo($row['nama_v']); custom_echo($name['filename'], 55); ?></a></h3>
                                 <p><?php echo $row['deskripsi_v']; ?></p>
                                 <aside class="meta category-meta">
                                     <div class="pull-left">
@@ -70,6 +70,7 @@
                                 </aside>                                
                             </div>
                         </li>
+                    <?php } ?>        
                         <!-- <li class="media">
                             <div class="media-left">
                                 <a href="#" title="Post">
@@ -94,8 +95,7 @@
                                     </div>
                                 </aside>                                
                             </div>
-                        </li> -->
-                    <?php } ?>                          
+                        </li> -->                  
                     </ul>                    
                 </section>
                 <aside class="sidebar col-sm-3">
@@ -103,13 +103,19 @@
                         <h4>Kategori</h4>
                         <ul>
                             <?php
-                                $query = "select * from kategori";
+                                $query = "select * from kategori where id_k!=1 order by nama_k";
                                 $result = mysqli_query($con, $query);
                                 while($row = mysqli_fetch_assoc($result))
                                 {
                             ?>
-                            <li><a href="#" title=""><?php echo $row['nama_k']; ?></a></li>
+                            <li><a href="kategori.php?idk=<?php echo $row['id_k'] ?>" title=""><?php echo $row['nama_k']; ?></a></li>
                             <?php } ?>
+                            <?php
+                                $query = "select * from kategori where id_k=1";
+                                $result = mysqli_query($con, $query);
+                                $row = mysqli_fetch_assoc($result)
+                            ?>
+                            <li><a href="kategori.php?idk=<?php echo $row['id_k'] ?>" title=""><?php echo $row['nama_k']; ?></a></li>
                         </ul>
                     </div>
                 </aside>
@@ -189,5 +195,19 @@
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <?php
+        function custom_echo($x, $length)
+        {
+          if(strlen($x)<=$length)
+          {
+            echo $x;
+          }
+          else
+          {
+            $y=substr($x,0,$length) . '...';
+            echo $y;
+          }
+        }
+    ?>
 </body>
 </html>

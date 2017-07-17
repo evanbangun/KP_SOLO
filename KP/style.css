@@ -8,7 +8,7 @@ a:hover {color: #404040;transition-property: all;transition-duration: 0.3s;trans
 a.none:hover {text-decoration: none;}
 
 .box1 {width:80%; margin-left:11%; color:#FFFFFF}
-
+.box2 {width:30%; margin-right:3%; float:left; margin-bottom:30px;}
 /* Header */
 .top {background-color: #404040;padding: 5px 0;color: #fff;}
 .top p {margin: 0;}
