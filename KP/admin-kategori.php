@@ -78,7 +78,7 @@
                 ?>
                 <tr>
                   <td><?php echo $row['nama_k']; ?></td>
-                  <td></td>
+                  <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i><i class="fa fa-times" aria-hidden="true" style="padding-left:10px"></i></td>
                 </tr>
                 <?php } ?>
               </tbody>
@@ -98,7 +98,18 @@
                 </form>
       		</div>
         </div>
-            
+        
+        <div id="myModal2" class="modal">
+		
+        <!-- Modal content -->
+            <div class="modal-content" style="height:200px;">
+            	<span id="close2" class="close">&times;</span>
+                <form action="/action_page.php" class="col-md-4 col-lg-push-4" style="margin-top:50px">
+                    Nama Kategori<br><input id="Kategori" name="Kategori" placeholder="Nama Kategori" class="form-control input-md" type="text" required="" style="margin-bottom:20px;">
+                  	<input type="submit" id="ubah" value="Ubah" class="btn btn-primary">
+                </form>
+      		</div>
+        </div>    
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -106,12 +117,16 @@
    <script>
 		// Get the modal
 		var modal = document.getElementById('myModal');
+		var modal2 = document.getElementById('myModal2');
 		
 		// Get the button that opens the modal
-		var btn = document.getElementById("tambah-kategori");
+		var btn = document.getElementById("tambah-user");
 		
 		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
+		var span = document.getElementById("close");
+		var span2 = document.getElementById("close2");
+		
+		var modifikasi = document.getElementsByClassName("fa fa-pencil-square-o");
 		
 		// When the user clicks the button, open the modal 
 		btn.onclick = function() {
@@ -122,6 +137,13 @@
 		span.onclick = function() {
 			modal.style.display = "none";
 			
+		}
+		span2.onclick = function() {
+			modal2.style.display = "none";
+			
+		}
+		modifikasi[0].onclick = function() {
+			modal2.style.display = "block";
 		}
 		
 		// When the user clicks anywhere outside of the modal, close it
