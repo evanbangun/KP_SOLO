@@ -1,3 +1,27 @@
+<?php
+  session_start();
+  include 'connection.php';
+
+  $login = isset($_GET['login']) ? $_GET['login']:"";
+  if ($login=="1")
+  {
+    $l_username=$_POST['username'];
+    $l_password=$_POST['password'];
+    
+    $sql = "select * from user where (username_u = '$l_username') AND (password_u = MD5('$l_password'))";
+    $result=mysqli_query($con, $sql);
+    
+    if($row = mysqli_fetch_assoc($result))
+    {
+      $_SESSION['user']=$row['nama_u'];
+      header("location:admin-user.php");
+    }
+    else
+    {
+      echo "<script type='text/javascript'>alert('Username atau password salah')</script>";
+    }
+  }
+?>
 <!DOCTYPE html>
 <html >
 <head>
@@ -30,31 +54,31 @@
         <div id="login">   
           <!--<h1>Masuk sebagai User</h1> -->
           
-          <form action="/" method="post">
-          
+          <form action="?login=1" method="post">
+
             <div class="field-wrap">
             <label style="color:#A8A8A8">
               Username</span>
             </label>
-            <input type="text"required autocomplete="off"/>
-          </div>
+            <input name="username" id="username" type="text" required autocomplete="off"/>
+            </div>
           
           <div class="field-wrap">
             <label style="color:#A8A8A8">
               Password</span>
             </label>
-            <input type="password"required autocomplete="off"/>
+            <input name="password" id="password" type="password" required autocomplete="off"/>
           </div>
          <!-- 
           <p class="forgot"><a href="#">Forgot Password?</a></p>
           -->
-          <button class="button button-block"/>Masuk</button>
+          <input type="submit" value="Masuk" class="button button-block"/>
           
           </form>
 
         </div>
 	     <div id="signup">   
-         <h1>Daftar Akun User</h1>
+         <!-- <h1>Daftar Akun User</h1>
           
           <form action="/" method="post">
           
@@ -100,7 +124,7 @@
           </form>
 
         </div>
-         
+         --> 
       </div><!-- tab-content -->
       
 </div> <!-- /form -->

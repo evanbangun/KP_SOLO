@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<?php
-    include 'connection.php';
-?>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -29,7 +26,7 @@
 					<span class="sr-only">Toggle Navigation</span>
 					<i class="fa fa-bars"></i>
 				</button>
-				<a href="index.php" class="navbar-brand">
+				<a href="index.html" class="navbar-brand">
 					<img style="margin-bottom:10px; margin-top:10px" src="img/logo.png" alt="Post">
 				</a>
                 <div class="box1">
@@ -40,60 +37,24 @@
 			</div>
 		</nav>        
     </header>
-    <div class="bread_area" style="background-color:#e6e6e6; margin-bottom:20px; height:45px;"> </div>   
+    <div class="bread_area" style="background-color:#e6e6e6; margin-bottom:20px;"> </div>   
     <main class="site-main category-main">
         <div class="container">
             <div class="row">
-                <section class="category-content col-sm-9">
-                    <h2 class="category-title">Video Terbaru</h2>
-                    <ul class="media-list">
-                    <?php
-                        $query = "select * from video order by tanggal_v desc limit 5";
-                        $result = mysqli_query($con, $query);
-                        while($row = mysqli_fetch_assoc($result))
-                        {
-                    ?>
-                        <li class="media">
-                            <div class="media-left">
-                                <a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post">
-                                    <video src="videos/<?php echo $row['nama_v']; ?>" type="video/mp4" width="256px">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <h3 class="media-heading"><a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post Title"><?php $name=pathinfo($row['nama_v']); custom_echo($name['filename'], 55); ?></a></h3>
-                                <p><?php echo $row['deskripsi_v']; ?></p>
-                                <aside class="meta category-meta">
-                                    <div class="pull-left">
-                                        <div class="arc-comment"><em class="fa fa-eye"></em> <?php echo $row['lihat_v']; ?></div>
-                                        <div class="arc-date"><?php echo $row['tanggal_v']; ?></div>
-                                    </div>
-                                </aside>                                
-                            </div>
-                        </li>
-                    <?php } ?>             
-                    </ul>                    
-                </section>
-                <aside class="sidebar col-sm-3">
-                    <div class="widget">
-                        <h4>Kategori</h4>
-                        <ul>
-                            <?php
-                                $query = "select * from kategori where id_k!=1 order by nama_k";
-                                $result = mysqli_query($con, $query);
-                                while($row = mysqli_fetch_assoc($result))
-                                {
-                            ?>
-                            <li><a href="kategori.php?idk=<?php echo $row['id_k'] ?>" title=""><?php echo $row['nama_k']; ?></a></li>
-                            <?php } ?>
-                            <?php
-                                $query = "select * from kategori where id_k=1";
-                                $result = mysqli_query($con, $query);
-                                $row = mysqli_fetch_assoc($result)
-                            ?>
-                            <li><a href="kategori.php?idk=<?php echo $row['id_k'] ?>" title=""><?php echo $row['nama_k']; ?></a></li>
-                        </ul>
-                    </div>
-                </aside>
+            	<h2 class="category-title">Daftar Kategori</h2>
+                <kategori1>
+                	<ul>
+                    	<li><a href="#">Kategori 1</a></li>
+                        <li><a href="#">Kategori 2</a></li>
+                        <li><a href="#">Kategori 3</a></li>
+                        <li><a href="#">Kategori 4</a></li>
+                        <li><a href="#">Kategori 5</a></li>
+                        <li><a href="#">Kategori 6</a></li>
+                    </ul>
+                </kategori1>
+                
+                
+                
             </div>
         </div>
     </main>
@@ -170,19 +131,6 @@
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <?php
-        function custom_echo($x, $length)
-        {
-          if(strlen($x)<=$length)
-          {
-            echo $x;
-          }
-          else
-          {
-            $y=substr($x,0,$length) . '...';
-            echo $y;
-          }
-        }
-    ?>
+    <script src="http://vjs.zencdn.net/6.2.0/video.js"></script>
 </body>
 </html>
