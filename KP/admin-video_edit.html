@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Menu Admin</title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=latin-ext" rel="stylesheet">
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+	<body style="background-color:#ccf">
+        <samping>
+        <div class="title">
+        	<img src="img/logo.png" width="85px" style="margin:10px; float:left">
+      		<div style="width:145px; height:100px; float:left; margin-top:20px">
+            	<p style="color:white; font-size:14px; margin:0;">Poltekkes Surakarta</p>
+                <p style="color:white; font-size:26px; margin:0;">LIOS Video</p>
+        	</div>
+        </div>
+        <div class="garis"></div>
+            
+            <ul>
+            	<li><a href="admin-user.html">Manajemen User</a></li>
+                <li><a class="active">Manajemen Video</a></li>
+                <li><a href="admin-kategori.html">Manajemen Kategori</a></li>
+            </ul>
+            
+            <div class="user"><p style="font-size:15px;">Login Sebagai : Admin</p></div>
+            <ul><li><a href="#" class="logout">Logout</a></li></ul>
+           
+        </samping>
+        
+        <div style="position:fixed; left:250px; right:0; height:140px; top:0; background-color:#fff;"></div>
+        <div style="position:fixed; left:300px; right:50px; height:5px; top:100px; background-color:#000;"></div>
+        <p style="position:fixed; left:310px; right:50px; top:20px; font-size:50px; color:#000;">Manajemen Video</p>
+    
+        <div class="konten">      
+       		<form action="/action_page.php" class="col-md-4 col-lg-push-4" style="margin-top:50px">
+                  Nama Video<br><input id="Namavideo" name="Namavedieo" placeholder="Nama Video" class="form-control input-md" type="text" style="margin-bottom:20px;">
+                  Kategori<br><select class="form-control" style="margin-bottom:20px;">
+                      <option value="kategori 1">kategori 1</option>
+                      <option value="kategori 2">kategori 2</option>
+                      <option value="kategori 3">kategori 3</option>
+				  </select>
+                  Deskripsi<br><input id="Deskripsi" name="Deskripsi" placeholder="Deskripsi" class="form-control input-md" type="text" style="margin-bottom:20px;">
+                  <center><input type="submit" id="ubah" value="Ubah" class="btn btn-primary">
+                  <a href="admin-video.html"><button type="button" class="btn btn-danger">Batal</button></a></center>
+           	</form>       
+        </div>
+            
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+   
+
+   <!-- <script type="text/javascript">
+    
+	(function() {
+		var bodyEL = $('body'),
+			navtogglebtm = bodyEL.find('.nav-toggle-btm');
+		
+		navtogglebtm.on('click', function(e) {
+			bodyEL.toggleClass('active-nav');
+			e.preventDefault();	 
+		});
+		
+	})();
+    </script>
+	-->
+</body>
+</html>
