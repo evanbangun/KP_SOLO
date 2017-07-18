@@ -13,6 +13,38 @@ a.none:hover {text-decoration: none;}
 
 kategori1 ul li a {width:20%; margin-right:5%; float:left; margin-bottom:5px; font-size:15px;}
 
+.alertfail {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+    width: 90%;
+}
+
+.alertsuccess {
+    padding: 20px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    margin-bottom: 15px;
+    width: 90%;
+}
+
+.closebtnalert {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtnalert:hover {
+    color: black;
+}
+
 samping {
 		position: fixed;
 		z-index: 1;

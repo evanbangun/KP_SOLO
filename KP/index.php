@@ -56,7 +56,12 @@
                         <li class="media">
                             <div class="media-left">
                                 <a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post">
-                                    <video src="videos/<?php echo $row['nama_v']; ?>" type="video/mp4" width="256px">
+                                    <?php
+                                        $query = "select * from kategori where id_k = $row[kategori_v]";
+                                        $result2 = mysqli_query($con, $query);
+                                        $katevideo = mysqli_fetch_assoc($result2);
+                                    ?>
+                                    <video src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $row['nama_v']; ?>" type="video/mp4" width="256px">
                                 </a>
                             </div>
                             <div class="media-body">
@@ -78,7 +83,7 @@
                         <h4>Kategori</h4>
                         <ul>
                             <?php
-                                $query = "select * from kategori where id_k!=1 order by nama_k";
+                                $query = "select * from kategori where nama_k != 'Lainnya' order by nama_k";
                                 $result = mysqli_query($con, $query);
                                 while($row = mysqli_fetch_assoc($result))
                                 {
@@ -86,11 +91,12 @@
                             <li><a href="kategori.php?idk=<?php echo $row['id_k'] ?>" title=""><?php echo $row['nama_k']; ?></a></li>
                             <?php } ?>
                             <?php
-                                $query = "select * from kategori where id_k=1";
+                                $query = "select * from kategori where nama_k = 'Lainnya'";
                                 $result = mysqli_query($con, $query);
                                 $row = mysqli_fetch_assoc($result)
                             ?>
                             <li><a href="kategori.php?idk=<?php echo $row['id_k'] ?>" title=""><?php echo $row['nama_k']; ?></a></li>
+                            <li><a href="kategori-list.php" title="">Lihat Semua Kategori</a></li>
                         </ul>
                     </div>
                 </aside>

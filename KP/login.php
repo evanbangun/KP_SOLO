@@ -1,6 +1,10 @@
 <?php
   session_start();
   include 'connection.php';
+  if (isset($_SESSION['user']))
+  {
+      header("location:admin-user.php");
+  }
 
   $login = isset($_GET['login']) ? $_GET['login']:"";
   if ($login=="1")

@@ -5,6 +5,37 @@
   {
       header("location:login.php");
   }
+
+  // ensure $dir ends with a slash 
+  function delTree($dir) { 
+      $files = glob( $dir . '*', GLOB_MARK ); 
+      foreach( $files as $file ){ 
+          if( substr( $file, -1 ) == '/' ) 
+              delTree( $file ); 
+          else 
+              unlink( $file ); 
+      } 
+      rmdir( $dir ); 
+  }
+
+  $ubah = isset($_GET['ubah']) ? $_GET['ubah']:"";
+  
+  $hapus = isset($_GET['hapus']) ? $_GET['hapus']:"";
+  if(isset($hapus))
+  {
+    $sql = "select * from kategori where id_k = '$hapus'";
+    $result=mysqli_query($con, $sql);
+    if($cekhapus = mysqli_fetch_assoc($result))
+    {
+      $dir = "videos/".$cekhapus['nama_k']."/";
+      delTree($dir);
+      $sql = "delete from kategori where id_k = '$hapus'";
+      $result=mysqli_query($con, $sql);
+      $hapusfolder=mysqli_fetch_assoc($result);
+      $successhapus=1;
+    }
+  }
+  
   $tambahk = isset($_GET['tambahk']) ? $_GET['tambahk']:"";
   if ($tambahk=="1")
   {
@@ -14,14 +45,17 @@
     
     if($row = mysqli_fetch_assoc($result))
     {
-      echo "<script type='text/javascript'>alert('Kategori sudah ada')</script>";
+      $success=0;
     }
     else
     {
       $sql = "insert into kategori(nama_k) VALUES ('$tk_nama')";
       $result=mysqli_query($con, $sql);
+      mkdir("videos/$tk_nama");
+      $success = 1;
     }
   }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -38,7 +72,7 @@
     <link href="style.css" rel="stylesheet">
 </head>
 	<body style="background-color:#ccf">
-        <samping>
+      <samping>
         <div class="title">
         	<img src="img/logo.png" width="85px" style="margin:10px; float:left">
       		<div style="width:145px; height:100px; float:left; margin-top:20px">
@@ -51,7 +85,7 @@
             <ul>
             	<li><a href="admin-user.php">Manajemen User</a></li>
                 <li><a href="admin-video.php">Manajemen Video</a></li>
-                <li><a class="active">Manajemen Kategori</a></li>
+                <li><a href="admin-kategori.php" class="active">Manajemen Kategori</a></li>
             </ul>
             
             <div class="user"><p style="font-size:15px;">Login Sebagai : <br><?php echo $_SESSION['user']; ?></p></div>
@@ -60,10 +94,50 @@
         </samping>
         
         <div style="position:fixed; left:250px; right:0; height:140px; top:0; background-color:#fff;"></div>
-        <div style="position:fixed; left:300px; right:50px; height:5px; top:100px; background-color:#000;"></div>
+        <div style="position:fixed; left:300px; right:50px; height:5px; top:100px; background-color:#000;"></div>  
         <p style="position:fixed; left:310px; right:50px; top:20px; font-size:50px; color:#000;">Manajemen Kategori</p>
-    
-        <div class="konten">      
+        <div class="konten">
+        <?php
+        if(isset($success))
+        {
+          if($success == 0)
+          {
+        ?>
+            <div class="alertfail">
+              <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+              <strong>Kategori Sudah Ada</strong>
+            </div>
+        <?php 
+          }
+          elseif ($success == 1)
+          {
+          ?>   
+            <div class="alertsuccess">
+              <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+              <strong>Kategori Berhasil Ditambah</strong>
+            </div>
+        <?php 
+          } 
+        }
+        elseif ($ubah == "1")
+        {
+        ?>   
+          <div class="alertsuccess">
+            <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Kategori Berhasil Diubah</strong>
+          </div>
+        <?php 
+        }
+        elseif (isset($successhapus))
+        {
+        ?>
+          <div class="alertsuccess">
+            <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Kategori Berhasil Dihapus</strong>
+          </div>
+        <?php
+        }
+        ?>
             <table width="60%" border="2">
               <tbody>
                 <tr>
@@ -78,7 +152,10 @@
                 ?>
                 <tr>
                   <td><?php echo $row['nama_k']; ?></td>
-                  <td></td>
+                  <td>
+                    <a href="admin-kategori_edit.php?idk=<?php echo $row['id_k']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <?php echo "<a onClick=\"javascript: return confirm('Yakin Ingin Menghapus $row[nama_k] ? SEMUA VIDEO BERKATEGORI INI JUGA AKAN IKUT TERHAPUS ! ');\" href='admin-kategori.php?hapus=".$row['id_k']."'><i class='fa fa-times' aria-hidden='true' style='padding-left:10px'></i></a>"; ?>
+                  </td>
                 </tr>
                 <?php } ?>
               </tbody>
@@ -88,7 +165,6 @@
         </div>
     
 	    <div id="myModal" class="modal">
-		
         <!-- Modal content -->
             <div class="modal-content" style="height:200px;">
             	<span class="close">&times;</span>
@@ -98,8 +174,7 @@
                 </form>
       		</div>
         </div>
-            
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
    

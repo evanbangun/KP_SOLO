@@ -1,3 +1,6 @@
+<?php
+    include 'connection.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +29,7 @@
 					<span class="sr-only">Toggle Navigation</span>
 					<i class="fa fa-bars"></i>
 				</button>
-				<a href="index.html" class="navbar-brand">
+				<a href="index.php" class="navbar-brand">
 					<img style="margin-bottom:10px; margin-top:10px" src="img/logo.png" alt="Post">
 				</a>
                 <div class="box1">
@@ -44,12 +47,20 @@
             	<h2 class="category-title">Daftar Kategori</h2>
                 <kategori1>
                 	<ul>
-                    	<li><a href="#">Kategori 1</a></li>
-                        <li><a href="#">Kategori 2</a></li>
-                        <li><a href="#">Kategori 3</a></li>
-                        <li><a href="#">Kategori 4</a></li>
-                        <li><a href="#">Kategori 5</a></li>
-                        <li><a href="#">Kategori 6</a></li>
+                    	<?php
+                                $query = "select * from kategori where nama_k != 'Lainnya' order by nama_k";
+                                $result = mysqli_query($con, $query);
+                                while($row = mysqli_fetch_assoc($result))
+                                {
+                            ?>
+                            <li><a href="kategori.php?idk=<?php echo $row['id_k'] ?>" title=""><?php echo $row['nama_k']; ?></a></li>
+                            <?php } ?>
+                            <?php
+                                $query = "select * from kategori where nama_k = 'Lainnya'";
+                                $result = mysqli_query($con, $query);
+                                $row = mysqli_fetch_assoc($result)
+                            ?>
+                            <li><a href="kategori.php?idk=<?php echo $row['id_k'] ?>" title=""><?php echo $row['nama_k']; ?></a></li>
                     </ul>
                 </kategori1>
                 

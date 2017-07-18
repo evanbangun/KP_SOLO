@@ -5,51 +5,73 @@
   {
       header("location:login.php");
   }
+
+  $ubah = isset($_GET['ubah']) ? $_GET['ubah']:"";
+  $hapus = isset($_GET['hapus']) ? $_GET['hapus']:"";
+  if(isset($hapus))
+  {
+    $sql = "select * from video where id_v = '$hapus'";
+    $result=mysqli_query($con, $sql);
+    if($cekhapus = mysqli_fetch_assoc($result))
+    {
+      $sql = "select * from kategori where id_k = $cekhapus[kategori_v]";
+      $result=mysqli_query($con, $sql);
+      $katehapus=mysqli_fetch_assoc($result);
+      unlink("videos/".$katehapus['nama_k']."/".$cekhapus['nama_v']);
+      $sql = "delete from video where id_v = '$hapus'";
+      $result=mysqli_query($con, $sql);
+      $successhapus=1;
+      // $message = "videos/".$katehapus['nama_k']."/".$cekhapus['nama_v'];
+      // echo "<script type='text/javascript'>alert('$message');</script>";
+    }
+  }
   $upload = isset($_GET['upload']) ? $_GET['upload']:"";
   if ($upload=="1")
   {
-    $t_deskripsi=$_POST['deskripsi'];
-    $t_kategori=$_POST['kategori'];
+    if(isset($_FILES['vidtoupload']['name']))
+    {
+      $t_deskripsi=$_POST['deskripsi'];
+      $t_kategori=$_POST['kategori'];
 
-    $sql = "select * from kategori where id_k = '$t_kategori'";
-    $result=mysqli_query($con, $sql);
-    $row = mysqli_fetch_assoc($result);
-    $t_a_kategori=$row['nama_k'];
-    $target_dir = "videos/$t_a_kategori/";
-    $target_file = $target_dir . basename($_FILES['vidtoupload']['name']);
-    $uploadOk = 1;
-    //echo $_FILES['vidtoupload']['error'];
-    $FileType = pathinfo($target_file,PATHINFO_EXTENSION);
-    // Check if file already exists
-    if (file_exists($target_file))
-    {
-        echo "<script type='text/javascript'>alert('Terdapat file dengan nama sama')</script>";
-        $uploadOk = 0;
-    }
-    // Allow certain file formats
-    if($FileType != "mp4" && $FileType != "ogg" && $FileType != "webm")
-    {
-        echo "<script type='text/javascript'>alert('Maaf, file yang upload harus berekstensi mp4, ogg, webm')</script>";
-        $uploadOk = 0;
-    }
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0)
-    {
-        echo "<script type='text/javascript'>alert('File gagal diupload')</script>";
-    // if everything is ok, try to upload file
+      $sql = "select * from kategori where id_k = '$t_kategori'";
+      $result=mysqli_query($con, $sql);
+      $row = mysqli_fetch_assoc($result);
+      $t_a_kategori=$row['nama_k'];
+      $target_dir = "videos/$t_a_kategori/";
+      $target_file = $target_dir . basename($_FILES['vidtoupload']['name']);
+      $uploadOk = 1;
+      //echo $_FILES['vidtoupload']['error'];
+      $FileType = pathinfo($target_file,PATHINFO_EXTENSION);
+      // Check if file already exists
+      if (file_exists($target_file))
+      {
+          $success = 3;
+          $uploadOk = 0;
+      }
+      // Allow certain file formats
+      if($FileType != "mp4" && $FileType != "ogg" && $FileType != "webm")
+      {
+          $success = 2;
+          $uploadOk = 0;
+      }
+      // Check if $uploadOk is set to 0 by an error
+      if ($uploadOk == 1)
+      {
+        if (move_uploaded_file($_FILES["vidtoupload"]["tmp_name"], $target_file))
+        {
+            $success = 1;
+            $sql = "insert into video( nama_v, lihat_v, deskripsi_v, kategori_v) VALUES ('".$_FILES['vidtoupload']['name']."','','$t_deskripsi','$t_kategori')";
+            $result=mysqli_query($con, $sql);
+        } 
+        else
+        {
+           $success = 0;
+        }
+      } 
     }
     else
     {
-      if (move_uploaded_file($_FILES["vidtoupload"]["tmp_name"], $target_file))
-      {
-          echo "<script type='text/javascript'>alert('File Berhasil di Upload')</script>";
-          $sql = "insert into video( nama_v, lihat_v, deskripsi_v, kategori_v) VALUES ('$t_a_kategori/".$_FILES['vidtoupload']['name']."','','$t_deskripsi','$t_kategori')";
-          $result=mysqli_query($con, $sql);
-      } 
-      else
-      {
-         echo "<script type='text/javascript'>alert('Terjadi error pada proses upload')</script>";
-      }
+      $success = 2;
     }
   }
 ?>
@@ -80,7 +102,7 @@
             
             <ul>
             	<li><a href="admin-user.php">Manajemen User</a></li>
-                <li><a class="active">Manajemen Video</a></li>
+                <li><a href="admin-video.php" class="active">Manajemen Video</a></li>
                 <li><a href="admin-kategori.php">Manajemen Kategori</a></li>
             </ul>
             
@@ -93,7 +115,66 @@
         <div style="position:fixed; left:300px; right:50px; height:5px; top:100px; background-color:#000;"></div>
         <p style="position:fixed; left:310px; right:50px; top:20px; font-size:50px; color:#000;">Manajemen Video</p>
     
-        <div class="konten">      
+        <div class="konten">
+        <?php
+          if(isset($success))
+          {
+            if($success == 3)
+            {
+        ?>
+              <div class="alertfail">
+                <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>Terdapat File Dengan Nama Sama</strong>
+              </div>
+        <?php 
+            }
+            elseif ($success == 2)
+            {
+        ?>   
+              <div class="alertfail">
+                <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>Format Video Tidak Diterima (Disarankan MP4, OGG, dan WEBM)</strong>
+              </div>
+        <?php 
+            }
+            elseif ($success == 0)
+            {
+        ?>   
+              <div class="alertfail">
+                <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>Video Gagal Di Upload</strong>
+              </div> 
+        <?php 
+            }
+            elseif ($success == 1)
+            {
+        ?>   
+              <div class="alertsuccess">
+                <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>Video Berhasil Ditambah</strong>
+              </div>
+        <?php 
+            }
+          }
+          elseif ($ubah == "1")
+          {
+        ?>   
+          <div class="alertsuccess">
+            <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Video Berhasil Diubah</strong>
+          </div> 
+        <?php 
+          }
+          elseif (isset($successhapus))
+          {
+        ?>   
+          <div class="alertsuccess">
+            <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Video Berhasil Dihapus</strong>
+          </div>
+        <?php
+          }
+        ?>
             <table width="95%" border="2">
               <tbody>
                 <tr>
@@ -125,7 +206,10 @@
                   <td><?php echo $row['tanggal_v']; ?></td>
                   <td><?php echo $row['deskripsi_v']; ?></td>
                   <td><?php echo $row['lihat_v']; ?></td>
-                  <td></td>
+                  <td>
+                    <a href="admin-video_edit.php?idv=<?php echo $row['id_v']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <?php echo "<a onClick=\"javascript: return confirm('Yakin Ingin Menghapus $row[nama_v] ?');\" href='admin-video.php?hapus=".$row['id_v']."'><i class='fa fa-times' aria-hidden='true' style='padding-left:10px'></i></a>"; ?>
+                  </td>
                 </tr>
                 <?php } ?>
               </tbody>
@@ -142,20 +226,20 @@
                 <form action="?upload=1" enctype="multipart/form-data" method="post" class="col-md-4 col-lg-push-4" style="margin-top:50px">
                   Upload Video<br><input type="file" id="vidtoupload" name="vidtoupload" style="margin-bottom:20px;">
                   Kategori<br><select id="kategori" name="kategori" class="form-control" style="margin-bottom:20px;">
-                  <?php
-                    $sql = "select * from kategori where id_k = 1";
-                    $result=mysqli_query($con, $sql);
-                    $row = mysqli_fetch_assoc($result)
-                    ?>
-                    <option value="<?php echo $row['id_k'] ?>"><?php echo $row['nama_k'] ?></option>
-                    <?php 
-                    $sql = "select * from kategori where id_k != 1 order by nama_k";
+                  <?php 
+                    $sql = "select * from kategori where nama_k != 'Lainnya' order by nama_k";
                     $result=mysqli_query($con, $sql);
                     while($row = mysqli_fetch_assoc($result))
                     {
                   ?>
                       <option value="<?php echo $row['id_k'] ?>"><?php echo $row['nama_k'] ?></option>
                   <?php } ?>
+                  <?php
+                    $sql = "select * from kategori where nama_k = 'Lainnya'";
+                    $result=mysqli_query($con, $sql);
+                    $row = mysqli_fetch_assoc($result)
+                    ?>
+                    <option value="<?php echo $row['id_k'] ?>"><?php echo $row['nama_k'] ?></option>  
 				  </select>
                   Deskripsi<br><textarea id="deskripsi" name="deskripsi" rows="5" placeholder="Deskripsi" class="form-control input-sm" type="text" style="margin-bottom:20px;"></textarea>
                   <input type="submit" value="Tambahkan" class="btn btn-primary">

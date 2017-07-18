@@ -74,7 +74,12 @@
                     <ul class="media-list">
                         <li class="media">
                             <div class="media-left">
-                                <video src="videos/<?php echo $video['nama_v']; ?>" type="video/mp4" width="720px" controls controlsList="nodownload">
+                                <?php
+                                        $query = "select * from kategori where id_k = $video[kategori_v]";
+                                        $result2 = mysqli_query($con, $query);
+                                        $katevideo = mysqli_fetch_assoc($result2);
+                                    ?>
+                                <video src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $video['nama_v']; ?>" type="video/mp4" width="720px" controls controlsList="nodownload">
                             </div>
                         </li>                        
                     </ul>
@@ -98,7 +103,12 @@
                     <div class="media">
                 		<div class="media-left">
                 			<a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post">
-                   	 			<video src="videos/<?php echo $row['nama_v']; ?>" type="video/mp4" width="144px">
+                                <?php
+                                    $query = "select * from kategori where id_k = $row[kategori_v]";
+                                    $result2 = mysqli_query($con, $query);
+                                    $katevideo = mysqli_fetch_assoc($result2);
+                                ?>
+                   	 			<video src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $row['nama_v']; ?>" type="video/mp4" width="144px">
                    	 		</a>
 	          			</div>
                     	<div class="media-body">

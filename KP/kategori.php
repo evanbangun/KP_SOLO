@@ -53,19 +53,40 @@
                 <?php
                     $query = "select * from video where kategori_v=".$idk;
                     $result = mysqli_query($con, $query);
-                    while($list = mysqli_fetch_assoc($result))
+                    $ressult = mysqli_query($con, $query);
+                    if($ceklist = mysqli_fetch_assoc($result))
+                    {
+                        while($list = mysqli_fetch_assoc($ressult))
+                        {
+                ?>
+                            <div class="box2">
+                            	<div class="media-left">
+                                    <a href="watch.php?idv=<?php echo $list['id_v']; ?>" title="Post">
+                                        <?php
+                                            $query = "select * from kategori where id_k = $list[kategori_v]";
+                                            $result2 = mysqli_query($con, $query);
+                                            $katevideo = mysqli_fetch_assoc($result2);
+                                        ?>
+                                        <video src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $list['nama_v']; ?>" type="video/mp4" width="256px" height="128px">
+                                    </a>
+                                </div>
+                                <div>
+                                	<h3 class="media-heading"><a href="#" title="Post Title"><?php $name=pathinfo($list['nama_v']); custom_echo($name['filename'], 25); ?></a></h3>
+                                    <!-- <p>deskripsi video ( jika ada ).</p> -->
+                                    <div class="arc-comment"><em class="fa fa-eye"></em> <?php echo $list['lihat_v'] ?></div>
+                                    <div class="arc-date"><?php echo $list['tanggal_v'] ?></div>                                
+                                </div>
+                            </div>
+                <?php   
+                        }
+                    }
+                    else
                     {
                 ?>
-                    <div class="box2">
-                    	<div class="media-left"><a href="watch.php?idv=<?php echo $list['id_v']; ?>" title="Post"><video src="videos/<?php echo $list['nama_v']; ?>" type="video/mp4" width="256px" height="128px"></a></div>
-                        <div>
-                        	<h3 class="media-heading"><a href="#" title="Post Title"><?php $name=pathinfo($list['nama_v']); custom_echo($name['filename'], 25); ?></a></h3>
-                            <!-- <p>deskripsi video ( jika ada ).</p> -->
-                            <div class="arc-comment"><em class="fa fa-eye"></em> <?php echo $list['lihat_v'] ?></div>
-                            <div class="arc-date"><?php echo $list['tanggal_v'] ?></div>                                
-                        </div>
-                    </div>
-                <?php } ?>
+                        <h1>TIDAK ADA VIDEO TERDAFTAR</h1>
+                <?php
+                    } 
+                ?>
             </div>
         </div>
     </main>

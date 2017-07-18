@@ -5,6 +5,19 @@
   {
       header("location:login.php");
   }
+  $ubah = isset($_GET['ubah']) ? $_GET['ubah']:"";
+  $hapus = isset($_GET['hapus']) ? $_GET['hapus']:"";
+  if(isset($hapus))
+  {
+    $sql = "select * from user where id_u = '$hapus'";
+    $result=mysqli_query($con, $sql);
+    if($cekhapus = mysqli_fetch_assoc($result))
+    {
+      $sql = "delete from user where id_u = '$hapus'";
+      $result=mysqli_query($con, $sql);
+      $successhapus=1;
+    }
+  }
   $tambah = isset($_GET['tambah']) ? $_GET['tambah']:"";
   if ($tambah=="1")
   {
@@ -18,18 +31,19 @@
     
     if($row = mysqli_fetch_assoc($result))
     {
-      echo "<script type='text/javascript'>alert('Username sudah terpakai')</script>";
+      $success = 3;
     }
     else
     {
       if($t_password != $t_password2)
       {
-        echo "<script type='text/javascript'>alert('Password yang dimasukkan tidak sama')</script>";
+        $success = 2;
       }
       else
       {
         $sql = "insert into user(id_u, username_u, password_u, nama_u) VALUES ('','$t_username',md5('$t_password'),'$t_nama')";
         $result=mysqli_query($con, $sql);
+        $success = 1;
       }
     }
   }
@@ -48,6 +62,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 	<body style="background-color:#ccf">
         <samping>
@@ -61,7 +76,7 @@
         <div class="garis"></div>
             
             <ul>
-            	<li><a class="active">Manajemen User</a></li>
+            	<li><a href="admin-user.php" class="active">Manajemen User</a></li>
                 <li><a href="admin-video.php">Manajemen Video</a></li>
                 <li><a href="admin-kategori.php">Manajemen Kategori</a></li>
             </ul>
@@ -75,7 +90,57 @@
         <div style="position:fixed; left:300px; right:50px; height:5px; top:100px; background-color:#000;"></div>
         <p style="position:fixed; left:310px; right:50px; top:20px; font-size:50px; color:#000;">Manajemen User</p>
     
-        <div class="konten">      
+        <div class="konten">
+        <?php
+          if(isset($success))
+          {
+            if($success == 3)
+            {
+        ?>
+              <div class="alertfail">
+                <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>Username Sudah Terpakai</strong>
+              </div>
+        <?php 
+            }
+            elseif ($success == 2)
+            {
+        ?>   
+              <div class="alertfail">
+                <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>Password yang Dimasukkan Tidak Sama</strong>
+              </div>
+        <?php 
+            }
+            elseif ($success == 1)
+            {
+        ?>   
+              <div class="alertsuccess">
+                <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>User Berhasil Ditambah</strong>
+              </div>
+        <?php 
+            }
+          }
+          else if($ubah == "1")
+          {
+        ?>
+              <div class="alertsuccess">
+                <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>User Berhasil Diubah</strong>
+              </div>
+        <?php
+          }
+          else if(isset($successhapus))
+          {
+        ?>
+              <div class="alertsuccess">
+                <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
+                <strong>User Berhasil Dihapus</strong>
+              </div>
+        <?php
+          } 
+        ?>
             <table width="80%" border="2">
               <tbody>
                 <tr>
@@ -94,7 +159,10 @@
                   <td><?php echo $row['username_u']; ?></td>
                   <td><?php echo $row['password_u']; ?></td>
                   <td><?php echo $row['nama_u']; ?></td>
-                  <td></td>
+                  <td>
+                    <a href="admin-user_edit.php?idu=<?php echo $row['id_u']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <?php echo "<a onClick=\"javascript: return confirm('Yakin Ingin Menghapus $row[username_u] ?');\" href='admin-user.php?hapus=".$row['id_u']."'><i class='fa fa-times' aria-hidden='true' style='padding-left:10px'></i></a>"; ?>
+                    </td>
                 </tr>
                 <?php } ?>
               </tbody>
@@ -122,6 +190,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
    
+   <script>
+      function myFunction()
+      {
+        var txt;
+        if (confirm("Yakin Ingin Menghapus ?") == true)
+        {
+            txt = "You pressed OK!";
+        }
+        else
+        {
+            txt = "You pressed Cancel!";
+        }
+        document.getElementById("demo").innerHTML = txt;
+      }
+    </script>
+
    <script>
 		// Get the modal
 		var modal = document.getElementById('myModal');
