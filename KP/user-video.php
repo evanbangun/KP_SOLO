@@ -5,11 +5,13 @@
   {
       header("location:login.php");
   }
-  elseif($_SESSION['user'] != "admin1")
+  elseif($_SESSION['user'] == "admin1")
   {
-      header("location:user-video.php");
+      header("location:admin-video.php");
   }
-
+  $sql = "select * from user where username_u = '".$_SESSION['user']."'";
+  $result=mysqli_query($con, $sql);
+  $user = mysqli_fetch_assoc($result);
   $ubah = isset($_GET['ubah']) ? $_GET['ubah']:"";
   $hapus = isset($_GET['hapus']) ? $_GET['hapus']:"";
   if(isset($hapus))
@@ -106,13 +108,6 @@
         	</div>
         </div>
         <div class="garis"></div>
-            
-            <ul>
-            	<li><a href="admin-user.php">Manajemen User</a></li>
-                <li><a href="admin-video.php" class="active">Manajemen Video</a></li>
-                <li><a href="admin-kategori.php">Manajemen Kategori</a></li>
-            </ul>
-            
             <div class="user"><p style="font-size:15px;">Login Sebagai : <br><?php echo $_SESSION['nama']; ?></p></div>
             <ul><li><a href="logout.php" class="logout">Logout</a></li></ul>
            
@@ -120,7 +115,7 @@
         
         <div style="position:fixed; left:250px; right:0; height:140px; top:0; background-color:#fff;"></div>
         <div style="position:fixed; left:300px; right:50px; height:5px; top:100px; background-color:#000;"></div>
-        <p style="position:fixed; left:310px; right:50px; top:20px; font-size:50px; color:#000;">Manajemen Video</p>
+        <p style="position:fixed; left:310px; right:50px; top:20px; font-size:50px; color:#000;">User Video</p>
     
         <div class="konten">
         <?php
@@ -181,7 +176,7 @@
           </div>
         <?php
           }
-        ?>
+        ?>      
             <table width="95%" border="2">
               <tbody>
                 <tr>
@@ -191,42 +186,34 @@
                   <th onclick="#">Tangal</th>
                   <th onclick="#">Deskripsi</th>
                   <th onclick="#">Lihat</th>
-                  <th onclick="#">Pengunggah</th>
                   <th onclick="#">Manage</th>
                 </tr>
                 <?php
                    $i = 0; 
-                   $sql = "select * from video";
-                   $result=mysqli_query($con, $sql);
+                   $sql = "select * from video where user_v = $user[id_u]";
+                   $result = mysqli_query($con, $sql);
                    while($row = mysqli_fetch_assoc($result))
                    {
                     $i++;
-                ?>
+                ?>  
                 <tr>
-                  <td><?php echo $i; ?></td>
-                  <td><?php $name=pathinfo($row['nama_v']); echo $name['basename']; ?></td>
-                  <td><?php 
-                        $sql = "select * from kategori where id_k=".$row['kategori_v'];
+                  <td><?php echo $i ?></td>
+                  <td><?php echo $row['nama_v']; ?></td>
+                  <td><?php $sql = "select * from kategori where id_k=".$row['kategori_v'];
                         $result2=mysqli_query($con, $sql);
                         $namak = mysqli_fetch_assoc($result2);
-                        echo $namak['nama_k'];
-                      ?></td>
+                        echo $namak['nama_k']; ?></td>
                   <td><?php echo $row['tanggal_v']; ?></td>
                   <td><?php echo $row['deskripsi_v']; ?></td>
                   <td><?php echo $row['lihat_v']; ?></td>
                   <td>
-                  <?php
-                    $sql = "select * from kategori where id_k=".$row['kategori_v'];
-                    $result2=mysqli_query($con, $sql);
-                    echo $row['user_v'];
-                  ?>
-                  </td>
-                  <td>
-                    <a href="admin-video_edit.php?idv=<?php echo $row['id_v']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                    <?php echo "<a onClick=\"javascript: return confirm('Yakin Ingin Menghapus $row[nama_v] ?');\" href='admin-video.php?hapus=".$row['id_v']."'><i class='fa fa-times' aria-hidden='true' style='padding-left:10px'></i></a>"; ?>
+                    <a href="user-video_edit.php?idv=<?php echo $row['id_v']; ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <?php echo "<a onClick=\"javascript: return confirm('Yakin Ingin Menghapus $row[nama_v] ?');\" href='user-video.php?hapus=".$row['id_v']."'><i class='fa fa-times' aria-hidden='true' style='padding-left:10px'></i></a>"; ?>
                   </td>
                 </tr>
-                <?php } ?>
+                <?php
+                   } 
+                ?>
               </tbody>
             </table>
             
@@ -234,10 +221,10 @@
         </div>
     
 	    <div id="myModal" class="modal">
-		
+    
         <!-- Modal content -->
             <div class="modal-content" style="height:400px;">
-            	<span class="close">&times;</span>
+              <span class="close">&times;</span>
                 <form action="?upload=1" enctype="multipart/form-data" method="post" class="col-md-4 col-lg-push-4" style="margin-top:50px">
                   Upload Video<br><input type="file" id="vidtoupload" name="vidtoupload" style="margin-bottom:20px;">
                   Kategori<br><select id="kategori" name="kategori" class="form-control" style="margin-bottom:20px;">
@@ -255,13 +242,12 @@
                     $row = mysqli_fetch_assoc($result)
                     ?>
                     <option value="<?php echo $row['id_k'] ?>"><?php echo $row['nama_k'] ?></option>  
-				  </select>
+          </select>
                   Deskripsi<br><textarea id="deskripsi" name="deskripsi" rows="5" placeholder="Deskripsi" class="form-control input-sm" type="text" style="margin-bottom:20px;"></textarea>
                   <input type="submit" value="Tambahkan" class="btn btn-primary">
                 </form>
-      		</div>
-        </div>
-            
+          </div>
+        </div>   
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -274,7 +260,8 @@
 		var btn = document.getElementById("tambah-user");
 		
 		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
+		var span = document.getElementById("close");
+			
 		
 		// When the user clicks the button, open the modal 
 		btn.onclick = function() {
@@ -294,6 +281,7 @@
 			}
 		}
 	</script>
+
 
    <!-- <script type="text/javascript">
     

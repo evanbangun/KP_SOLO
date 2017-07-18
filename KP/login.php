@@ -17,12 +17,16 @@
     
     if($row = mysqli_fetch_assoc($result))
     {
-      $_SESSION['user']=$row['nama_u'];
-      header("location:admin-user.php");
-    }
-    else
-    {
-      echo "<script type='text/javascript'>alert('Username atau password salah')</script>";
+      $_SESSION['user']=$row['username_u'];
+      $_SESSION['nama']=$row['nama_u'];
+      if($_SESSION['user'] == "admin1")
+      {
+        header("location:admin-user.php");  
+      }
+      else
+      {
+        header("location:user-video.php"); 
+      }
     }
   }
 ?>
@@ -33,14 +37,20 @@
   <title>Sign-Up/Login Form</title>
   <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
-  
-      <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css">
 
   
 </head>
 
 <body>
+  <?php
+    if($login == "1")
+    {
+  ?>
+      <script type='text/javascript'>alert('Username atau password salah')</script>
+  <?php
+    }
+  ?>
   <div class="form">
       <ul class="tab-group">
 		<div class="gambar">

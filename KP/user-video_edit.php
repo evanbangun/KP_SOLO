@@ -5,18 +5,27 @@
   {
       header("location:login.php");
   }
-  elseif($_SESSION['user'] != "admin1")
+  elseif($_SESSION['user'] == "admin1")
   {
-      header("location:user-video_edit.php");
+      header("location:admin-video_edit.php");
   }
   $idv = isset($_GET['idv']) ? $_GET['idv']:"";
   if($idv == "")
   {
-      header("location:admin-video.php");
+      header("location:user-video.php");
   }
   $sql = "select * from video where id_v=".$idv;
   $result=mysqli_query($con, $sql);
   $datav = mysqli_fetch_assoc($result);
+
+  $sql = "select * from user where username_u=".$_SESSION['user'];
+  $result=mysqli_query($con, $sql);
+  $user = mysqli_fetch_assoc($result);
+
+  if($datav['user_v'] != $user['id_u'])
+  {
+      header("location:user-video.php");
+  }
 
   $sql = "select * from kategori where id_k = '$datav[kategori_v]'";
   $result=mysqli_query($con, $sql);
@@ -45,7 +54,7 @@
       $sql = "update video set nama_v='$u_namavideo', deskripsi_v='$u_deskripsi', kategori_v='$u_kategori' where id_v = '$u_id'";
       $result=mysqli_query($con, $sql);
       rename("videos/".$alphak['nama_k']."/".$datav['nama_v'], "videos/".$alphaknew['nama_k']."/".$u_namavideo);
-      header("location:admin-video.php?ubah=1");
+      header("location:user-video.php?ubah=1");
     }
   }
 ?>
@@ -73,13 +82,6 @@
         	</div>
         </div>
         <div class="garis"></div>
-            
-            <ul>
-            	<li><a href="admin-user.php">Manajemen User</a></li>
-                <li><a href="admin-video.php" class="active">Manajemen Video</a></li>
-                <li><a href="admin-kategori.php">Manajemen Kategori</a></li>
-            </ul>
-            
             <div class="user"><p style="font-size:15px;">Login Sebagai : <br><?php echo $_SESSION['nama']; ?></p></div>
             <ul><li><a href="logout.php" class="logout">Logout</a></li></ul>
            
@@ -89,23 +91,12 @@
         <div style="position:fixed; left:300px; right:50px; height:5px; top:100px; background-color:#000;"></div>
         <p style="position:fixed; left:310px; right:50px; top:20px; font-size:50px; color:#000;">Manajemen Video</p>
     
-        <div class="konten">
-        <?php
-          if(isset($success))
-          {
-        ?>
-              <div class="alertfail">
-                <span class="closebtnalert" onclick="this.parentElement.style.display='none';">&times;</span>
-                <strong>Nama Video Sudah Terpakai</strong>
-              </div>
-        <?php 
-          }
-        ?> 
-       		<form method="post" action="admin-video_edit.php?ubah=1&idv=<?php echo $datav['id_v']; ?>" class="col-md-4 col-lg-push-4" style="margin-top:50px">
-                  ID<br><input value="<?php echo $datav['id_v'] ?>" id="id" name="id" placeholder="ID" class="form-control input-md" type="text" style="margin-bottom:20px;" readonly>
-              Nama Video<br><input value="<?php echo $datav['nama_v'] ?>" id="namavideo" name="namavideo" placeholder="Nama Video" class="form-control input-md" type="text" style="margin-bottom:20px;">
-                  Kategori<br><select name="kategori" id="kategori" value="<?php echo $datav['kategori_v'] ?>" class="form-control" style="margin-bottom:20px;">
-                  <?php 
+        <div class="konten">      
+       		<form method="post" action="user-video_edit.php?ubah=1&idv=<?php echo $datav['id_v']; ?>" class="col-md-4 col-lg-push-4" style="margin-top:50px">
+                  <input type="hidden" value="<?php echo $datav['id_v'] ?>" id="id" name="id" placeholder="ID" class="form-control input-md" type="text" style="margin-bottom:20px;" readonly >
+                  Nama Video<br><input value="<?php echo $datav['nama_v'] ?>" id="namavideo" name="namavideo" placeholder="Nama Video" class="form-control input-md" type="text" style="margin-bottom:20px;">
+                  Kategori<br><select id="kategori" name="kategori" class="form-control" style="margin-bottom:20px;">
+                      <?php 
                     $sql = "select * from kategori where nama_k != 'Lainnya' order by nama_k";
                     $result=mysqli_query($con, $sql);
                     while($row = mysqli_fetch_assoc($result))
@@ -120,9 +111,9 @@
                     ?>
                     <option value="<?php echo $row['id_k'] ?>"><?php echo $row['nama_k'] ?></option>
 				  </select>
-                  Deskripsi<br><textarea rows="5" id="deskripsi" name="deskripsi" placeholder="Deskripsi" class="form-control input-sm" type="text" style="margin-bottom:20px;"><?php echo $datav['deskripsi_v']; ?></textarea>
+                  Deskripsi<br><textarea rows="5" id="deskripsi" name="deskripsi" placeholder="Deskripsi" class="form-control input-sm" type="text" style="margin-bottom:20px;"><?php echo $datav['deskripsi_v'] ?></textarea>
                   <center><input type="submit" id="ubah" value="Ubah" class="btn btn-primary">
-                  <a href="admin-video.php"><button type="button" class="btn btn-danger">Batal</button></a></center>
+                  <a href="user-video.php"><button type="button" class="btn btn-danger">Batal</button></a></center>
            	</form>       
         </div>
             

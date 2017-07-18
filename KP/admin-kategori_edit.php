@@ -5,8 +5,15 @@
   {
       header("location:login.php");
   }
-  
+  elseif($_SESSION['user'] != "admin1")
+  {
+      header("location:user-video.php");
+  }
   $idk = $_GET['idk'];
+  if($idk == "")
+  {
+      header("location:admin-kategori.php");
+  }
   $sql = "select * from kategori where id_k=".$idk;
   $result=mysqli_query($con, $sql);
   $row = mysqli_fetch_assoc($result);
@@ -64,7 +71,7 @@
                 <li><a href="admin-kategori.php" class="active">Manajemen Kategori</a></li>
             </ul>
             
-            <div class="user"><p style="font-size:15px;">Login Sebagai : <br><?php echo $_SESSION['user']; ?></p></div>
+            <div class="user"><p style="font-size:15px;">Login Sebagai : <br><?php echo $_SESSION['nama']; ?></p></div>
             <ul><li><a href="logout.php" class="logout">Logout</a></li></ul>
            
         </samping>

@@ -5,6 +5,10 @@
   {
       header("location:login.php");
   }
+  elseif($_SESSION['user'] != "admin1")
+  {
+      header("location:user-video.php");
+  }
 
   // ensure $dir ends with a slash 
   function delTree($dir) { 
@@ -88,7 +92,7 @@
                 <li><a href="admin-kategori.php" class="active">Manajemen Kategori</a></li>
             </ul>
             
-            <div class="user"><p style="font-size:15px;">Login Sebagai : <br><?php echo $_SESSION['user']; ?></p></div>
+            <div class="user"><p style="font-size:15px;">Login Sebagai : <br><?php echo $_SESSION['nama']; ?></p></div>
             <ul><li><a href="logout.php" class="logout">Logout</a></li></ul>
            
         </samping>
