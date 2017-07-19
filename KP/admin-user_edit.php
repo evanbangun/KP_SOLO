@@ -11,9 +11,9 @@
   }
   
   $idu = isset($_GET['idu']) ? $_GET['idu']:"";
-  if($idk == "")
+  if($idu == "")
   {
-      header("location:admin-kategori.php");
+      header("location:admin-user.php");
   }
   $sql = "select * from user where id_u=".$idu;
   $result=mysqli_query($con, $sql);

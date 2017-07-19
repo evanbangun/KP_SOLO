@@ -18,7 +18,7 @@
   $result=mysqli_query($con, $sql);
   $datav = mysqli_fetch_assoc($result);
 
-  $sql = "select * from user where username_u=".$_SESSION['user'];
+  $sql = "select * from user where username_u='".$_SESSION['user']."'";
   $result=mysqli_query($con, $sql);
   $user = mysqli_fetch_assoc($result);
 
