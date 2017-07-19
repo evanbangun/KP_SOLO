@@ -8,6 +8,7 @@
     $query = "select * from video where id_v=".$idv;
     $result = mysqli_query($con, $query);
     $video = mysqli_fetch_assoc($result);
+
 ?>
 <html lang="en">
 <head>
@@ -88,7 +89,7 @@
                                 <p><?php echo $video['deskripsi_v']; ?></p>                                    
                      </div>
                      <div class="arc-comment"><em class="fa fa-eye"></em> <?php echo $video['lihat_v']; ?></div>
-                  <a href="videos/<?php echo $video['nama_v']; ?>" download><button type="button" class="btn btn-success">Download</button></a>
+                  <a href="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $video['nama_v']; ?>" download><button type="button" class="btn btn-success">Download</button></a>
                 </section>
                 <aside class="sidebar col-sm-3">
                 	<div class="widget">
