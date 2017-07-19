@@ -11,7 +11,13 @@ a.none:hover {text-decoration: none;}
 .box2 {width:30%; margin-right:3%; float:left; margin-bottom:30px;}
 . {margin:0; padding:0;}
 
+.garishorizontal {background-color: #666; width: 100%; height: 3px; margin-top: 10px; margin-bottom: 20px;}
+
 kategori1 ul li a {width:20%; margin-right:5%; float:left; margin-bottom:5px; font-size:15px;}
+
+video {
+  object-fit: fill;
+}
 
 .alertfail {
     padding: 20px;

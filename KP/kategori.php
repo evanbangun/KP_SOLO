@@ -56,8 +56,10 @@
                     $ressult = mysqli_query($con, $query);
                     if($ceklist = mysqli_fetch_assoc($result))
                     {
+                        $i = 0;
                         while($list = mysqli_fetch_assoc($ressult))
                         {
+                            $i++;
                 ?>
                             <div class="box2">
                             	<div class="media-left">
@@ -67,14 +69,21 @@
                                             $result2 = mysqli_query($con, $query);
                                             $katevideo = mysqli_fetch_assoc($result2);
                                         ?>
-                                        <video src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $list['nama_v']; ?>" type="video/mp4" width="256px" height="128px">
+                                        <video class="vid" src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $list['nama_v']; ?>" type="video/mp4" width="256px" height="128px">
                                     </a>
                                 </div>
                                 <div>
-                                	<h3 class="media-heading"><a href="#" title="Post Title"><?php $name=pathinfo($list['nama_v']); custom_echo($name['filename'], 25); ?></a></h3>
+                                	<h3 class="media-heading"><a href="watch.php?idv=<?php echo $list['id_v']; ?>" title="Post Title"><?php $name=pathinfo($list['nama_v']); custom_echo($name['filename'], 25); ?></a></h3>
                                     <!-- <p>deskripsi video ( jika ada ).</p> -->
-                                    <div class="arc-comment"><em class="fa fa-eye"></em> <?php echo $list['lihat_v'] ?></div>
-                                    <div class="arc-date"><?php echo $list['tanggal_v'] ?></div>                                
+                                    <div class="durbox">
+                                        <p id="vid<?php echo $i; ?>"></p>
+                                    </div>
+                                    <?php
+                                        $query = "select * from user where id_u = $list[user_v]";
+                                        $result3 = mysqli_query($con, $query);
+                                        $uploader = mysqli_fetch_assoc($result3)
+                                    ?>
+                                    <div class="arc-date">Di Upload Oleh : <?php echo $uploader['nama_u'] ?></div>                                
                                 </div>
                             </div>
                 <?php   
@@ -163,6 +172,43 @@
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script>
+        var vid = document.getElementsByClassName("vid");
+        for (i = 0; i < <?php echo $i ?>; i++)
+        { 
+            var durasi = "";
+            var a = "";
+            var b = "";
+            var c = "";
+            if(Math.floor(vid[i].duration/3600) < 10)
+            {
+                a += "0" + Math.floor(vid[i].duration/3600);
+            }
+            else
+            {
+                a += Math.floor(vid[i].duration/3600);
+            }
+            if(Math.floor(vid[i].duration%3600/60) < 10)
+            {
+                b += "0" + Math.floor(vid[i].duration%3600/60);
+            }
+            else
+            {
+                b += Math.floor(vid[i].duration%3600/60);
+            }
+            if(Math.floor(vid[i].duration%3600%60) < 10)
+            {
+                c += "0" + Math.floor(vid[i].duration%3600%60);
+            }
+            else
+            {
+                c += Math.floor(vid[i].duration%3600%60);
+            }
+            durasi += a + ":" + b + ":" + c;
+            var j = i + 1;
+            document.getElementById("vid"+j).innerHTML = durasi;
+        }
+    </script> 
     <?php
         function custom_echo($x, $length)
         {

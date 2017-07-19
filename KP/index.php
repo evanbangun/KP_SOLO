@@ -21,8 +21,7 @@
     <![endif]-->
 </head>
 <body>
-    <header class="site-header">
-        
+    <header class="site-header">  
         <nav class="navbar navbar-default" style="background-color:#404040">
 			<div class="container">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse">
@@ -40,117 +39,137 @@
 			</div>
 		</nav>        
     </header>
-    <div class="bread_area" style="background-color:#e6e6e6; margin-bottom:20px; height:45px;"> </div>   
+    <div class="bread_area" style="background-color:#e6e6e6; margin-bottom:20px;"> 
+    </div>   
     <main class="site-main category-main">
         <div class="container">
-            <div class="row">
-                <section class="category-content col-sm-9">
-                    <h2 class="category-title">Video Terbaru</h2>
-                    <ul class="media-list">
+        	<div class="col-sm-9">
+                <?php
+                    $query = "select * from video order by tanggal_v desc limit 1";
+                    $result = mysqli_query($con, $query);
+                    $row = mysqli_fetch_assoc($result);
+                    $query = "select * from kategori where id_k = $row[kategori_v]";
+                    $result = mysqli_query($con, $query);
+                    $katevideo = mysqli_fetch_assoc($result);
+                ?>
+            	<h2 class="category-title">Video Terbaru</h2>
+           		<video width="100%" controls autoplay>
+               		<source src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $row['nama_v']; ?>" type="video/mp4">
+              	</video>
+                <h2><?php $name=pathinfo($row['nama_v']); custom_echo($name['filename'], 30); ?></h2>
+                <?php
+                    $query = "select * from user where id_u = ".$row['user_v'];
+                    $result = mysqli_query($con, $query);
+                    $uploader = mysqli_fetch_assoc($result);
+                ?>
+                <h6><?php echo $uploader['nama_u']; ?></h6>
+                <h4><?php echo $row['deskripsi_v']; ?></h4>
+            </div> 
+            <div class="col-sm-3">
+                <div class="widget">
+                    <h4>Kategori</h4>
+                    <ul>
                     <?php
-                        $query = "select * from video order by tanggal_v desc limit 5";
+                        $query = "select * from kategori where nama_k != 'Lainnya' order by nama_k";
                         $result = mysqli_query($con, $query);
                         while($row = mysqli_fetch_assoc($result))
                         {
                     ?>
-                        <li class="media">
-                            <div class="media-left">
-                                <a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post">
-                                    <?php
-                                        $query = "select * from kategori where id_k = $row[kategori_v]";
-                                        $result2 = mysqli_query($con, $query);
-                                        $katevideo = mysqli_fetch_assoc($result2);
-                                    ?>
-                                    <video src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $row['nama_v']; ?>" type="video/mp4" width="256px">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                <h3 class="media-heading"><a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post Title"><?php $name=pathinfo($row['nama_v']); custom_echo($name['filename'], 55); ?></a></h3>
-                                <p><?php echo $row['deskripsi_v']; ?></p>
-                                <aside class="meta category-meta">
-                                    <div class="pull-left">
-                                        <div class="arc-comment"><em class="fa fa-eye"></em> <?php echo $row['lihat_v']; ?></div>
-                                        <div class="arc-date"><?php echo $row['tanggal_v']; ?></div>
-                                    </div>
-                                </aside>                                
-                            </div>
-                        </li>
-                    <?php } ?>             
-                    </ul>                    
-                </section>
-                <aside class="sidebar col-sm-3">
-                    <div class="widget">
-                        <h4>Kategori</h4>
-                        <ul>
-                            <?php
-                                $query = "select * from kategori where nama_k != 'Lainnya' order by nama_k";
-                                $result = mysqli_query($con, $query);
-                                while($row = mysqli_fetch_assoc($result))
-                                {
-                            ?>
-                            <li><a href="kategori.php?idk=<?php echo $row['id_k'] ?>" title=""><?php echo $row['nama_k']; ?></a></li>
-                            <?php } ?>
-                            <?php
-                                $query = "select * from kategori where nama_k = 'Lainnya'";
-                                $result = mysqli_query($con, $query);
-                                $row = mysqli_fetch_assoc($result)
-                            ?>
-                            <li><a href="kategori.php?idk=<?php echo $row['id_k'] ?>" title=""><?php echo $row['nama_k']; ?></a></li>
-                            <li><a href="kategori-list.php" title="">Lihat Semua Kategori</a></li>
-                        </ul>
-                    </div>
-                </aside>
+                    <li><a href="kategori.php?idk=<?php echo $row['id_k'] ?>" title=""><?php echo $row['nama_k']; ?></a></li>
+                    <?php } ?>
+                    <?php
+                        $query = "select * from kategori where nama_k = 'Lainnya'";
+                        $result = mysqli_query($con, $query);
+                        $row = mysqli_fetch_assoc($result)
+                    ?>
+                    <li><a href="kategori.php?idk=<?php echo $row['id_k'] ?>" title=""><?php echo $row['nama_k']; ?></a></li>
+                </ul>
+                    <ul><li><a href="kategori-list.php" title="">Lihat Semua Kategori</a></li></ul>
+                </div>
             </div>
         </div>
+        <div class="container">
+        	<div class="garishorizontal"></div>
+            <h2 class="category-title">Recent Video</h2>
+            <?php
+                $i = 0;
+                $query = "select * from video order by tanggal_v desc limit 4";
+                $result = mysqli_query($con, $query);
+                while($row = mysqli_fetch_assoc($result))
+                {
+                    $i++;
+                    $query2 = "select * from kategori where id_k = $row[kategori_v]";
+                    $result2 = mysqli_query($con, $query2);
+                    $katevideo = mysqli_fetch_assoc($result2);
+            ?>
+                    <div class="col-sm-3">
+                    	<div class="videothumb">
+                            <a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post">
+                        	<video class="vid" width="256" height="192">
+                            	<source src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $row['nama_v']; ?>" type="video/mp4">
+                            </video>
+                            </a>
+                            <div class="durbox">
+                       			<p id="vid<?php echo $i; ?>"></p>
+                            </div>
+                        </div>
+                        <a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post">
+                        <h4><?php $name=pathinfo($row['nama_v']); custom_echo($name['filename'], 30); ?></h4>
+                        </a>
+                    </div>
+            <?php
+                }
+            ?>		
+        </div>
+        <?php
+            $query = "select * from kategori order by nama_k desc limit 3";
+            $result = mysqli_query($con, $query);
+            while($kategori = mysqli_fetch_assoc($result))
+            {
+        ?>
+                    <div class="container">
+                    	<div class="garishorizontal"></div>
+                        <a href="kategori.php?idk=<?php echo $kategori['id_k']; ?>" title="Post">
+                        <h2 class="category-title"><?php echo $kategori['nama_k']; ?></h2>
+                        </a>
+        <?php
+
+                $query2 = "select * from video where kategori_v = $kategori[id_k]";
+                $result2 = mysqli_query($con, $query2);
+                while($video = mysqli_fetch_assoc($result2))
+                {
+                    $i++;
+        ?>
+                        <div class="col-sm-3">
+                        	<div class="videothumb">
+                                <a href="watch.php?idv=<?php echo $video['id_v']; ?>" title="Post">
+                            	<video class="vid" width="256" height="192">
+                                	<source src="videos/<?php echo $kategori['nama_k']; ?>/<?php echo $video['nama_v']; ?>" type="video/mp4">
+                                </video>
+                                </a>
+                                <div class="durbox">
+            						<p id="vid<?php echo $i; ?>"></p>
+                                </div>
+                            </div>
+                            <a href="watch.php?idv=<?php echo $video['id_v']; ?>" title="Post">
+                            <h4><?php $name=pathinfo($video['nama_v']); custom_echo($name['filename'], 30); ?></h4></a>
+                            <?php
+                                $query3 = "select * from user where id_u = $video[user_v]";
+                                $result3 = mysqli_query($con, $query3);
+                                $uploader = mysqli_fetch_assoc($result3)
+                            ?>
+                            <p>Di Upload Oleh : <?php echo $uploader['nama_u'] ?></p>
+                        </div>	
+        <?php
+                }
+        ?>	
+                    </div>
+        <?php
+            }
+        ?>
     </main>
     <footer class="site-footer">
         <div class="container">
-        
-        <!--
-            <div class="row">
-                <div class="col-md-3 col-sm-6 fbox">
-                    <h4>COMPANY NAME</h4>
-                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam congue lectus diam, sit amet cursus massa efficitur sed. </p>
-                    <ul class="list-inline">
-                        <li><a href="#" title="Post"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" title="Post"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" title="Post"><i class="fa fa-linkedin"></i></a></li>                        
-                    </ul>
-                </div>
-                <div class="col-md-3 col-sm-6 fbox">
-                    <h4>SERVICES</h4>
-                    <ul class="big">
-                        <li><a href="#" title="">Title One</a></li>
-                        <li><a href="#" title="">Title Two</a></li>
-                        <li><a href="#" title="">Title Three</a></li>
-                        <li><a href="#" title="">Title Four</a></li>
-                        <li><a href="#" title="">Title Five</a></li>
-                        <li><a href="#" title="">Title Six</a></li>
-                        <li><a href="#" title="">Title Seven</a></li>
-                        <li><a href="#" title="">Title Eight</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 col-sm-6 fbox">
-                    <h4>CONTENT</h4>
-                    <ul class="big">
-                        <li><a href="#" title="">Title One</a></li>
-                        <li><a href="#" title="">Title Two</a></li>
-                        <li><a href="#" title="">Title Three</a></li>
-                        <li><a href="#" title="">Title Four</a></li>
-                        <li><a href="#" title="">Title Five</a></li>
-                        <li><a href="#" title="">Title Six</a></li>
-                        <li><a href="#" title="">Title Seven</a></li>
-                        <li><a href="#" title="">Title Eight</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 col-sm-6 fbox">
-                    <h4>CONTENT</h4>
-                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <p><a href="tel:+902222222222"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> +90 222 222 22 22</a></p>
-                    <p><a href="mailto:iletisim@agrisosgb.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> mail@awebsitename.com</a></p>
-                </div>
-            </div>
-        -->
         </div>
         <div id="copyright">
             <div class="container">
@@ -158,24 +177,51 @@
                     <div class="col-md-4">
                         <p class="pull-left">&copy; 2017 Library Integrated Online Services (LIOS)</p>
                     </div>
-                    <!--
-                    <div class="col-md-8">
-                        <ul class="list-inline navbar-right">
-                            <li><a href="#" title="Post">HOME</a></li>
-                            <li><a href="#" title="Post">MENU ITEM</a></li>
-                            <li><a href="#" title="Post">MENU ITEM</a></li>
-                            <li><a href="#" title="Post">MENU ITEM</a></li>
-                            <li><a href="#" title="Post">MENU ITEM</a></li>
-                            <li><a href="#" title="Post">MENU ITEM</a></li>
-                        </ul>
-                    </div>
-                	-->
                 </div>
             </div>
         </div>        
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    
+   	<script>
+		var vid = document.getElementsByClassName("vid");
+        for (i = 0; i < <?php echo $i ?>; i++)
+        { 
+            var durasi = "";
+            var a = "";
+            var b = "";
+            var c = "";
+            if(Math.floor(vid[i].duration/3600) < 10)
+            {
+                a += "0" + Math.floor(vid[i].duration/3600);
+            }
+            else
+            {
+                a += Math.floor(vid[i].duration/3600);
+            }
+            if(Math.floor(vid[i].duration%3600/60) < 10)
+            {
+                b += "0" + Math.floor(vid[i].duration%3600/60);
+            }
+            else
+            {
+                b += Math.floor(vid[i].duration%3600/60);
+            }
+            if(Math.floor(vid[i].duration%3600%60) < 10)
+            {
+                c += "0" + Math.floor(vid[i].duration%3600%60);
+            }
+            else
+            {
+                c += Math.floor(vid[i].duration%3600%60);
+            }
+            durasi += a + ":" + b + ":" + c;
+            var j = i + 1;
+            document.getElementById("vid"+j).innerHTML = durasi;
+        }
+    </script> 
+
     <?php
         function custom_echo($x, $length)
         {
