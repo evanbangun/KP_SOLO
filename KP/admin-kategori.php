@@ -38,6 +38,8 @@
       $hapusfolder=mysqli_fetch_assoc($result);
       $successhapus=1;
     }
+    $sql = "delete from video where kategori_v = '$hapus'";
+    $result=mysqli_query($con, $sql);
   }
   
   $tambahk = isset($_GET['tambahk']) ? $_GET['tambahk']:"";
