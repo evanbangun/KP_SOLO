@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LIOS Video</title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=latin-ext" rel="stylesheet">
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <header class="site-header">  
+        <nav class="navbar navbar-default" style="background-color:#404040">
+			<div class="container">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse">
+					<span class="sr-only">Toggle Navigation</span>
+					<i class="fa fa-bars"></i>
+				</button>
+				<a href="index.html" class="navbar-brand">
+					<img style="margin-bottom:10px; margin-top:10px" src="img/logo.png" alt="Post">
+				</a>
+                <div class="box1">
+                  <p style="padding-top:35px; font-size:35px;"><b>Library Integrated Online Services (LIOS) Video</b></p>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-navbar-collapse"> </div><!-- /.navbar-collapse -->                
+				<!-- END MAIN NAVIGATION -->
+			</div>
+		</nav>        
+    </header>
+    <div class="bread_area" style="background-color:#e6e6e6; margin-bottom:20px;"> 
+    </div>   
+   	<div class="slideshow-container">
+    	<!--<a class="prev" onclick="plusSlides(-1)">&#10094;</a>-->
+      	<div class="mySlides">
+        	<div class="colvid">
+            	<video height="174" width="232">
+                	<source src="img/tes.mp4" type="video/mp4">
+                </video>
+                <h2>Video 1</h2>
+            </div>
+            <div class="colvid">
+            	<video height="174" width="232">
+                	<source src="img/oor - the beginning.mp4" type="video/mp4">
+                </video>
+                <h2>Video 2</h2>
+            </div>
+            <div class="colvid">
+            	<video height="174" width="232">
+                	<source src="img/Danshi Special 6.flv" type="video/mp4">
+                </video>
+                <h2>Video 3</h2>
+            </div>
+            <div class="colvid">
+            	<video height="174" width="232">
+                	<source src="img/tes.mp4" type="video/mp4">
+                </video>
+                <h2>Video 4</h2>
+            </div>
+            <div class="colvid">
+            	<video height="174" width="232">
+                	<source src="img/tes.mp4" type="video/mp4">
+                </video>
+                <h2>Video 5</h2>
+            </div>
+      	</div>
+    
+      	<div class="mySlides">
+            <div class="colvid">
+            	<video height="174" width="232">
+                	<source src="img/Danshi Special 6.flv" type="video/mp4">
+                </video>
+                <h2>Video 6</h2>
+            </div>
+            <div class="colvid">
+            	<video height="174" width="232">
+                	<source src="img/tes.mp4" type="video/mp4">
+                </video>
+                <h2>Video 7</h2>
+            </div>
+            <div class="colvid">
+            	<video height="174" width="232">
+                	<source src="img/tes.mp4" type="video/mp4">
+                </video>
+                <h2>Video 8</h2>
+            </div>
+            <div class="colvid">
+            	<video height="174" width="232">
+                	<source src="img/oor - the beginning.mp4" type="video/mp4">
+                </video>
+                <h2>Video 9</h2>
+            </div>
+            <div class="colvid">
+            	<video height="174" width="232">
+                	<source src="img/oor - the beginning.mp4" type="video/mp4">
+                </video>
+                <h2>Video 10</h2>
+            </div>
+      	</div>
+       
+      	
+      	<!--<a class="next" onclick="plusSlides(1)">&#10095;</a> -->
+    </div>
+    <br>
+    
+    <div style="text-align:center">
+      	<span class="dot" onclick="currentSlide(1)"></span>
+      	<span class="dot" onclick="currentSlide(2)"></span>
+    </div> 
+
+    <footer class="site-footer">
+        <div class="container">
+        </div>
+        <div id="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="pull-left">&copy; 2017 Library Integrated Online Services (LIOS)</p>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+    <script>
+	var slideIndex = 1;
+	showSlides(slideIndex);
+	
+	function plusSlides(n) {
+	  showSlides(slideIndex += n);
+	}
+	
+	function currentSlide(n) {
+	  showSlides(slideIndex = n);
+	}
+	
+	function showSlides(n) {
+	  var i;
+	  var slides = document.getElementsByClassName("mySlides");
+	  var dots = document.getElementsByClassName("dot");
+	  if (n > slides.length) {slideIndex = 1}
+	  if (n < 1) {slideIndex = slides.length}
+	  for (i = 0; i < slides.length; i++) {
+		  slides[i].style.display = "none";
+	  }
+	  for (i = 0; i < dots.length; i++) {
+		  dots[i].className = dots[i].className.replace(" active", "");
+	  }
+	  slides[slideIndex-1].style.display = "block";
+	  dots[slideIndex-1].className += " active";
+	}
+	</script>
+    
+</body>
+</html>
