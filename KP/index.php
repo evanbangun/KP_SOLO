@@ -62,7 +62,7 @@
                     $result = mysqli_query($con, $query);
                     $uploader = mysqli_fetch_assoc($result);
                 ?>
-                <h6><?php echo $uploader['nama_u']; ?></h6>
+                <h6>Di Upload Oleh : <?php echo $uploader['nama_u']; ?></h6>
                 <h4><?php echo $row['deskripsi_v']; ?></h4>
             </div> 
             <div class="col-sm-3">
