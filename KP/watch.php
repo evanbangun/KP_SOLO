@@ -89,7 +89,36 @@
                      </div>
                      <div class="arc-comment"><em class="fa fa-eye"></em> <?php echo $video['lihat_v']; ?></div>
                   <a href="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $video['nama_v']; ?>" download><button type="button" class="btn btn-success">Download</button></a>
-                </section>
+                
+		<div class="garishorizontal"  style="margin-top:50px;"></div>
+                <h2 class="category-title">Komentar</h2>
+                   
+                <form class="form-horizontal" action="/" id="comment">
+                	<div class="form-group">
+                        	<label class="control-label col-sm-1" for="Nama">Nama:</label>
+                          	<div class="col-sm-4">
+                            		<input type="nama" class="form-control" id="nama" placeholder="Masukkan Nama" name="nama">
+                          	</div>
+                       	</div>
+                        <div class="form-group">
+                        	<label class="control-label col-sm-1" for="komentar">Komentar:</label>
+                          	<div class="col-sm-9">
+                            		<textarea class="form-control" rows="4" name="comment" form="komentar" placeholder="Masukkan Komentar"></textarea>
+                          	</div>
+                       	</div>
+                  </form>
+                        
+                  <div class="garishorizontal"  style="margin-top:50px;"></div>
+                  <div style="margin-bottom:30px;">
+                   	<h4 style="color:#000;">User 1</h4>
+                        <p>Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1</p>
+                  </div>
+                  <div style="margin-bottom:30px;">
+                    	<h4 style="color:#000;">User 2</h4>
+                        <p>Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2</p>
+                  </div>
+		    
+		</section>
                 <aside class="sidebar col-sm-3">
                 	<div class="widget">
                 		<h4>Video Berkategori Sama</h4>
