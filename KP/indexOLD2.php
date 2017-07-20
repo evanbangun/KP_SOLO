@@ -92,77 +92,40 @@
         	<div class="garishorizontal"></div>
             <h2 class="category-title">Recent Video</h2>
             <?php
-                $slide = 0;
-                $query = "select * from video order by tanggal_v";
+                $i = 0;
+                $query = "select * from video order by tanggal_v desc limit 4";
                 $result = mysqli_query($con, $query);
-                $num_rows = mysqli_num_rows($result);
-                if($num_rows > 4)
+                while($row = mysqli_fetch_assoc($result))
                 {
-                    $slide = 2;
-                }
-                else
-                {
-                    $slide = 1;
-                }
+                    $i++;
+                    $query2 = "select * from kategori where id_k = $row[kategori_v]";
+                    $result2 = mysqli_query($con, $query2);
+                    $katevideo = mysqli_fetch_assoc($result2);
             ?>
-            <div class="slideshow-container">
-                <!--<a class="prev" onclick="plusSlides(-1)">&#10094;</a>-->
-                <?php
-                    $q=0;
-                    $i = 0;
-                    for($x = $slide; $x > 0; $x--)
-                    {
-                ?>
-                <div class="mySlides">
-                    <?php
-                        $query = "select * from video order by tanggal_v desc limit ".($q*4).",".(($q+1)*4);
-                        $result = mysqli_query($con, $query);
-                        while($row = mysqli_fetch_assoc($result))
-                        {
-                            $i++;
-                            $query2 = "select * from kategori where id_k = $row[kategori_v]";
-                            $result2 = mysqli_query($con, $query2);
-                            $katevideo = mysqli_fetch_assoc($result2);
-                    ?>
-                            <div class="col-sm-3">
-                                <a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post">
-                                    <video class="vid" width="232" height="174">
-                                        <source src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $row['nama_v']; ?>" type="video/mp4">
-                                    </video>
-                                </a>
-                                <div class="durbox">
-                                    <p id="vid<?php echo $i; ?>"></p>
-                                </div>
-                                <a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post">
-                                    <h4><?php $name=pathinfo($row['nama_v']); custom_echo($name['filename'], 30); ?></h4>
-                                </a>
-                                <?php
-                                    $queryup = "select * from user where id_u = ".$row['user_v'];
-                                    $resultup = mysqli_query($con, $queryup);
-                                    $uploaderup = mysqli_fetch_assoc($resultup);
-                                ?>
-                                <h6>Di Upload Oleh : <?php echo $uploaderup['nama_u']; ?></h6>
+                    <div class="col-sm-3">
+                    	<div class="videothumb">
+                            <a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post">
+                        	<video class="vid" width="256" height="192">
+                            	<source src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $row['nama_v']; ?>" type="video/mp4">
+                            </video>
+                            </a>
+                            <div class="durbox">
+                       			<p id="vid<?php echo $i; ?>"></p>
                             </div>
-                    <?php
-                        }
-                        $q++;
-                    ?>
-                </div>
-                <?php
-                    }
-                ?>
-            </div>
-            <br>
-            <div style="text-align:center">
-                <?php
-                    for($x = 1; $x <= $slide; $x++)
-                    {
-                ?>
-                <span class="dot" onclick="currentSlide(<?php echo $x ?>)"></span>
-                <?php
-                    }
-                ?>
-            </div>		
+                        </div>
+                        <a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post">
+                        <h4><?php $name=pathinfo($row['nama_v']); custom_echo($name['filename'], 30); ?></h4>
+                        </a>
+                        <?php
+                            $query3 = "select * from user where id_u = $row[user_v]";
+                            $result3 = mysqli_query($con, $query3);
+                            $uploader = mysqli_fetch_assoc($result3)
+                        ?>
+                        <p>Di Upload Oleh : <?php echo $uploader['nama_u'] ?></p>
+                    </div>
+            <?php
+                }
+            ?>		
         </div>
         <?php
             $query = "select * from kategori order by nama_k desc limit 3";
@@ -226,35 +189,6 @@
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    
-    <script>
-	var slideIndex = 1;
-	showSlides(slideIndex);
-	
-	function plusSlides(n) {
-	  showSlides(slideIndex += n);
-	}
-	
-	function currentSlide(n) {
-	  showSlides(slideIndex = n);
-	}
-	
-	function showSlides(n) {
-	  var i;
-	  var slides = document.getElementsByClassName("mySlides");
-	  var dots = document.getElementsByClassName("dot");
-	  if (n > slides.length) {slideIndex = 1}
-	  if (n < 1) {slideIndex = slides.length}
-	  for (i = 0; i < slides.length; i++) {
-		  slides[i].style.display = "none";
-	  }
-	  for (i = 0; i < dots.length; i++) {
-		  dots[i].className = dots[i].className.replace(" active", "");
-	  }
-	  slides[slideIndex-1].style.display = "block";
-	  dots[slideIndex-1].className += " active";
-	}
-	</script>
     
    	<script>
 		var vid = document.getElementsByClassName("vid");
