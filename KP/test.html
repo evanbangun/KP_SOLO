@@ -42,66 +42,76 @@
     	<!--<a class="prev" onclick="plusSlides(-1)">&#10094;</a>-->
       	<div class="mySlides">
         	<div class="colvid">
-            	<video height="174" width="232">
+            	<video class="vi" height="174" width="232">
                 	<source src="img/tes.mp4" type="video/mp4">
                 </video>
+		<p id="vid1"></p>
                 <h2>Video 1</h2>
             </div>
             <div class="colvid">
-            	<video height="174" width="232">
+            	<video class="vi" height="174" width="232">
                 	<source src="img/oor - the beginning.mp4" type="video/mp4">
                 </video>
+		<p id="vid2"></p>
                 <h2>Video 2</h2>
             </div>
             <div class="colvid">
-            	<video height="174" width="232">
+            	<video class="vi" height="174" width="232">
                 	<source src="img/Danshi Special 6.flv" type="video/mp4">
                 </video>
+		<p id="vid3"></p>
                 <h2>Video 3</h2>
             </div>
             <div class="colvid">
-            	<video height="174" width="232">
+            	<video class="vi" height="174" width="232">
                 	<source src="img/tes.mp4" type="video/mp4">
                 </video>
+		<p id="vid4"></p>
                 <h2>Video 4</h2>
             </div>
             <div class="colvid">
-            	<video height="174" width="232">
+            	<video class="vi" height="174" width="232">
                 	<source src="img/tes.mp4" type="video/mp4">
                 </video>
+		<p id="vid5"></p>
                 <h2>Video 5</h2>
             </div>
       	</div>
     
       	<div class="mySlides">
             <div class="colvid">
-            	<video height="174" width="232">
+            	<video class="vi" height="174" width="232">
                 	<source src="img/Danshi Special 6.flv" type="video/mp4">
                 </video>
+		<p id="vid6"></p>
                 <h2>Video 6</h2>
             </div>
             <div class="colvid">
-            	<video height="174" width="232">
+            	<video class="vi" height="174" width="232">
                 	<source src="img/tes.mp4" type="video/mp4">
                 </video>
+		<p id="vid7"></p>
                 <h2>Video 7</h2>
             </div>
             <div class="colvid">
-            	<video height="174" width="232">
+            	<video class="vi" height="174" width="232">
                 	<source src="img/tes.mp4" type="video/mp4">
                 </video>
+		<p id="vid8"></p>
                 <h2>Video 8</h2>
             </div>
             <div class="colvid">
-            	<video height="174" width="232">
+            	<video class="vi" height="174" width="232">
                 	<source src="img/oor - the beginning.mp4" type="video/mp4">
                 </video>
+		<p id="vid9"></p>
                 <h2>Video 9</h2>
             </div>
             <div class="colvid">
-            	<video height="174" width="232">
+            	<video class="vi" height="174" width="232">
                 	<source src="img/oor - the beginning.mp4" type="video/mp4">
                 </video>
+		<p id="vid10"></p>
                 <h2>Video 10</h2>
             </div>
       	</div>
@@ -131,7 +141,21 @@
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    
+
+	<script>
+		var vid = document.getElementsByClassName("vi");
+		document.getElementById("vid1").innerHTML = vid[0].duration;
+		document.getElementById("vid2").innerHTML = vid[1].duration;
+		document.getElementById("vid3").innerHTML = vid[2].duration;
+		document.getElementById("vid4").innerHTML = vid[3].duration;
+		document.getElementById("vid5").innerHTML = vid[4].duration;
+		document.getElementById("vid6").innerHTML = vid[5].duration;
+		document.getElementById("vid7").innerHTML = vid[6].duration;
+		document.getElementById("vid8").innerHTML = vid[7].duration;
+		document.getElementById("vid9").innerHTML = vid[8].duration;
+		document.getElementById("vid10").innerHTML = vid[9].duration;
+	</script>
+	
     <script>
 	var slideIndex = 1;
 	showSlides(slideIndex);
