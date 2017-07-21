@@ -91,9 +91,6 @@
                     <ul><li><a href="kategori-list.php" title="">Lihat Semua Kategori</a></li></ul>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <div class="garishorizontal"></div>
             <h2 class="category-title">Recent Video</h2>
             <?php
                 $slide = 0;
@@ -176,7 +173,6 @@
             {
         ?>
                     <div class="container">
-                        <div class="garishorizontal"></div>
                         <a href="kategori.php?idk=<?php echo $kategori['id_k']; ?>" title="Post">
                         <h2 class="category-title"><?php echo $kategori['nama_k']; ?></h2>
                         </a>
