@@ -19,6 +19,8 @@
     {
       $sql = "delete from user where id_u = '$hapus'";
       $result=mysqli_query($con, $sql);
+      $sql = "update video set user_v=1 where user_v = '$hapus'";
+      $result=mysqli_query($con, $sql);
       $successhapus=1;
     }
   }

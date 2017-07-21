@@ -70,7 +70,7 @@
                     <h4>Kategori</h4>
                     <ul>
                     <?php
-                        $query = "select * from kategori where nama_k != 'Lainnya' order by nama_k";
+                        $query = "select * from kategori where nama_k != 'Lainnya' order by nama_k limit 5";
                         $result = mysqli_query($con, $query);
                         while($row = mysqli_fetch_assoc($result))
                         {
@@ -105,7 +105,8 @@
                     $slide = 1;
                 }
             ?>
-            <div class="slideshow-container">
+            </div>
+            <div class="container">
                 <!--<a class="prev" onclick="plusSlides(-1)">&#10094;</a>-->
                 <?php
                     $q=0;
@@ -151,7 +152,7 @@
                 <?php
                     }
                 ?>
-            </div>
+            
             <br>
             <div style="text-align:center">
                 <?php
@@ -165,7 +166,7 @@
             </div>      
         </div>
         <?php
-            $query = "select * from kategori order by nama_k desc limit 3";
+            $query = "select * from kategori where jlvideo_k != 0 order by nama_k limit 3";
             $result = mysqli_query($con, $query);
             while($kategori = mysqli_fetch_assoc($result))
             {
@@ -176,7 +177,6 @@
                         <h2 class="category-title"><?php echo $kategori['nama_k']; ?></h2>
                         </a>
         <?php
-
                 $query2 = "select * from video where kategori_v = $kategori[id_k]";
                 $result2 = mysqli_query($con, $query2);
                 while($video = mysqli_fetch_assoc($result2))

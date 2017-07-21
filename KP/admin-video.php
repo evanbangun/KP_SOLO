@@ -18,11 +18,15 @@
     $result=mysqli_query($con, $sql);
     if($cekhapus = mysqli_fetch_assoc($result))
     {
+      $sql = "update kategori set jlvideo_k=jlvideo_k-1 where id_k=$cekhapus[kategori_v]";
+      $result=mysqli_query($con, $sql);
       $sql = "select * from kategori where id_k = $cekhapus[kategori_v]";
       $result=mysqli_query($con, $sql);
       $katehapus=mysqli_fetch_assoc($result);
       unlink("videos/".$katehapus['nama_k']."/".$cekhapus['nama_v']);
       $sql = "delete from video where id_v = '$hapus'";
+      $result=mysqli_query($con, $sql);
+      $sql = "delete from komen where video_c = '$hapus'";
       $result=mysqli_query($con, $sql);
       $successhapus=1;
       // $message = "videos/".$katehapus['nama_k']."/".$cekhapus['nama_v'];
@@ -63,6 +67,8 @@
       {
         if (move_uploaded_file($_FILES["vidtoupload"]["tmp_name"], $target_file))
         {
+            $sql = "update kategori set jlvideo_k=jlvideo_k+1 where id_k=".$t_kategori;
+            $result=mysqli_query($con, $sql);
             $sql = "select * from user where username_u = '".$_SESSION['user']."'";
             $result=mysqli_query($con, $sql);
             $uploader = mysqli_fetch_assoc($result);
@@ -216,9 +222,10 @@
                   <td><?php echo $row['lihat_v']; ?></td>
                   <td>
                   <?php
-                    $sql = "select * from kategori where id_k=".$row['kategori_v'];
+                    $sql = "select * from user where id_u=".$row['user_v'];
                     $result2=mysqli_query($con, $sql);
-                    echo $row['user_v'];
+                    $namau = mysqli_fetch_assoc($result2);
+                    echo $namau['nama_u'];
                   ?>
                   </td>
                   <td>

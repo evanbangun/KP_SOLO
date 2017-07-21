@@ -21,6 +21,7 @@
   $sql = "select * from kategori where id_k = '$datav[kategori_v]'";
   $result=mysqli_query($con, $sql);
   $alphak = mysqli_fetch_assoc($result);
+  $oldk = $alphak['id_k'];
 
   $ubah = isset($_GET['ubah']) ? $_GET['ubah']:"";
   if ($ubah=="1")
@@ -42,6 +43,10 @@
     }
     else
     {
+      $sql = "update kategori set jlvideo_k=jlvideo_k-1 where id_k = ".$oldk;
+      $result=mysqli_query($con, $sql);
+      $sql = "update kategori set jlvideo_k=jlvideo_k+1 where id_k = ".$u_kategori;
+      $result=mysqli_query($con, $sql);
       $sql = "update video set nama_v='$u_namavideo', deskripsi_v='$u_deskripsi', kategori_v='$u_kategori' where id_v = '$u_id'";
       $result=mysqli_query($con, $sql);
       rename("videos/".$alphak['nama_k']."/".$datav['nama_v'], "videos/".$alphaknew['nama_k']."/".$u_namavideo);
