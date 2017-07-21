@@ -46,7 +46,7 @@
 		</nav>        
     </header>
     <div class="bread_area" style="background-color:#e6e6e6; margin-bottom:20px;"> </div>   
-    <main class="site-main category-main">
+    <main class="site-main category-main" style="min-height: 70%">
         <div class="container">
             
             	<h2 class="category-title">Kategori Video : <?php echo $kategori['nama_k'] ?></h2>
@@ -99,7 +99,7 @@
             
         </div>
     </main>
-    <footer class="site-footer">
+    <footer class="site-footer" style="position: fixed; bottom: 0;">
         <div class="container">
         
         <!--
