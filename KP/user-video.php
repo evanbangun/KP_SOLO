@@ -65,6 +65,8 @@
       {
         if (move_uploaded_file($_FILES["vidtoupload"]["tmp_name"], $target_file))
         {
+            $sql = "update kategori set jlvideo_k=jlvideo_k+1 where id_k=".$t_kategori;
+            $result=mysqli_query($con, $sql);
             $sql = "select * from user where username_u = '".$_SESSION['user']."'";
             $result=mysqli_query($con, $sql);
             $uploader = mysqli_fetch_assoc($result);

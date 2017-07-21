@@ -47,10 +47,11 @@
                 <?php
                     $query = "select * from video order by tanggal_v desc limit 1";
                     $result = mysqli_query($con, $query);
-                    $row = mysqli_fetch_assoc($result);
-                    $query = "select * from kategori where id_k = $row[kategori_v]";
-                    $result = mysqli_query($con, $query);
-                    $katevideo = mysqli_fetch_assoc($result);
+                    if($row = mysqli_fetch_assoc($result))
+                    {
+                        $query = "select * from kategori where id_k = $row[kategori_v]";
+                        $result = mysqli_query($con, $query);
+                        $katevideo = mysqli_fetch_assoc($result);
                 ?>
                 <h2 class="category-title">Video Terbaru</h2>
                 <video width="100%" controls autoplay>
@@ -64,6 +65,9 @@
                 ?>
                 <h6>Di Upload Oleh : <?php echo $uploader['nama_u']; ?></h6>
                 <h4><?php echo $row['deskripsi_v']; ?></h4>
+                <?php
+                    }
+                ?>
             </div> 
             <div class="col-sm-3">
                 <div class="widget">
@@ -166,7 +170,7 @@
             </div>      
         </div>
         <?php
-            $query = "select * from kategori where jlvideo_k != 0 order by nama_k limit 3";
+            $query = "select * from kategori where jlvideo_k > 0 order by nama_k limit 3";
             $result = mysqli_query($con, $query);
             while($kategori = mysqli_fetch_assoc($result))
             {
