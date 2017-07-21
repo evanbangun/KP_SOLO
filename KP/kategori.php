@@ -48,7 +48,7 @@
     <div class="bread_area" style="background-color:#e6e6e6; margin-bottom:20px;"> </div>   
     <main class="site-main category-main">
         <div class="container">
-            <div class="row">
+            
             	<h2 class="category-title">Kategori Video : <?php echo $kategori['nama_k'] ?></h2>
                 <?php
                     $query = "select * from video where kategori_v=".$idk;
@@ -96,7 +96,7 @@
                 <?php
                     } 
                 ?>
-            </div>
+            
         </div>
     </main>
     <footer class="site-footer">
