@@ -23,27 +23,27 @@
 <body>
     <header class="site-header">  
         <nav class="navbar navbar-default" style="background-color:#404040">
-			<div class="container">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse">
-					<span class="sr-only">Toggle Navigation</span>
-					<i class="fa fa-bars"></i>
-				</button>
-				<a href="index.php" class="navbar-brand">
-					<img style="margin-bottom:10px; margin-top:10px" src="img/logo.png" alt="Post">
-				</a>
+            <div class="container">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a href="index.php" class="navbar-brand">
+                    <img style="margin-bottom:10px; margin-top:10px" src="img/logo.png" alt="Post">
+                </a>
                 <div class="box1">
                   <p style="padding-top:35px; font-size:35px;"><b>Library Integrated Online Services (LIOS) Video</b></p>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-navbar-collapse"> </div><!-- /.navbar-collapse -->                
-				<!-- END MAIN NAVIGATION -->
-			</div>
-		</nav>        
+                <!-- END MAIN NAVIGATION -->
+            </div>
+        </nav>        
     </header>
     <div class="bread_area" style="background-color:#e6e6e6; margin-bottom:20px;"> 
     </div>   
     <main class="site-main category-main">
         <div class="container">
-        	<div class="col-sm-9">
+            <div class="col-sm-9">
                 <?php
                     $query = "select * from video order by tanggal_v desc limit 1";
                     $result = mysqli_query($con, $query);
@@ -52,10 +52,10 @@
                     $result = mysqli_query($con, $query);
                     $katevideo = mysqli_fetch_assoc($result);
                 ?>
-            	<h2 class="category-title">Video Terbaru</h2>
-           		<video width="100%" controls autoplay>
-               		<source src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $row['nama_v']; ?>" type="video/mp4">
-              	</video>
+                <h2 class="category-title">Video Terbaru</h2>
+                <video width="100%" controls autoplay>
+                    <source src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $row['nama_v']; ?>" type="video/mp4">
+                </video>
                 <h2><?php $name=pathinfo($row['nama_v']); custom_echo($name['filename'], 30); ?></h2>
                 <?php
                     $query = "select * from user where id_u = ".$row['user_v'];
@@ -89,7 +89,7 @@
             </div>
         </div>
         <div class="container">
-        	<div class="garishorizontal"></div>
+            <div class="garishorizontal"></div>
             <h2 class="category-title">Recent Video</h2>
             <?php
                 $slide = 0;
@@ -162,7 +162,7 @@
                 <?php
                     }
                 ?>
-            </div>		
+            </div>      
         </div>
         <?php
             $query = "select * from kategori order by nama_k desc limit 3";
@@ -171,7 +171,7 @@
             {
         ?>
                     <div class="container">
-                    	<div class="garishorizontal"></div>
+                        <div class="garishorizontal"></div>
                         <a href="kategori.php?idk=<?php echo $kategori['id_k']; ?>" title="Post">
                         <h2 class="category-title"><?php echo $kategori['nama_k']; ?></h2>
                         </a>
@@ -184,14 +184,14 @@
                     $i++;
         ?>
                         <div class="col-sm-3">
-                        	<div class="videothumb">
+                            <div class="videothumb">
                                 <a href="watch.php?idv=<?php echo $video['id_v']; ?>" title="Post">
-                            	<video class="vid" width="256" height="192">
-                                	<source src="videos/<?php echo $kategori['nama_k']; ?>/<?php echo $video['nama_v']; ?>" type="video/mp4">
+                                <video class="vid" width="256" height="192">
+                                    <source src="videos/<?php echo $kategori['nama_k']; ?>/<?php echo $video['nama_v']; ?>" type="video/mp4">
                                 </video>
                                 </a>
                                 <div class="durbox">
-            						<p id="vid<?php echo $i; ?>"></p>
+                                    <p id="vid<?php echo $i; ?>"></p>
                                 </div>
                             </div>
                             <a href="watch.php?idv=<?php echo $video['id_v']; ?>" title="Post">
@@ -202,10 +202,10 @@
                                 $uploader = mysqli_fetch_assoc($result3)
                             ?>
                             <p>Di Upload Oleh : <?php echo $uploader['nama_u'] ?></p>
-                        </div>	
+                        </div>  
         <?php
                 }
-        ?>	
+        ?>  
                     </div>
         <?php
             }
@@ -228,36 +228,36 @@
     <script src="js/bootstrap.min.js"></script>
     
     <script>
-	var slideIndex = 1;
-	showSlides(slideIndex);
-	
-	function plusSlides(n) {
-	  showSlides(slideIndex += n);
-	}
-	
-	function currentSlide(n) {
-	  showSlides(slideIndex = n);
-	}
-	
-	function showSlides(n) {
-	  var i;
-	  var slides = document.getElementsByClassName("mySlides");
-	  var dots = document.getElementsByClassName("dot");
-	  if (n > slides.length) {slideIndex = 1}
-	  if (n < 1) {slideIndex = slides.length}
-	  for (i = 0; i < slides.length; i++) {
-		  slides[i].style.display = "none";
-	  }
-	  for (i = 0; i < dots.length; i++) {
-		  dots[i].className = dots[i].className.replace(" active", "");
-	  }
-	  slides[slideIndex-1].style.display = "block";
-	  dots[slideIndex-1].className += " active";
-	}
-	</script>
+    var slideIndex = 1;
+    showSlides(slideIndex);
     
-   	<script>
-		var vid = document.getElementsByClassName("vid");
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    
+    function showSlides(n) {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    }
+    </script>
+    
+    <script>
+        var vid = document.getElementsByClassName("vid");
         for (i = 0; i < <?php echo $i ?>; i++)
         { 
             var durasi = "";

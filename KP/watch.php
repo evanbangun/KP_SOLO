@@ -8,6 +8,16 @@
     $query = "select * from video where id_v=".$idv;
     $result = mysqli_query($con, $query);
     $video = mysqli_fetch_assoc($result);
+
+    $comment = isset($_GET['comment']) ? $_GET['comment']:"";
+    if ($comment=="1")
+    {
+        $c_video=$_POST['idvideo'];
+        $c_nama=$_POST['nama'];
+        $c_isi=$_POST['comment'];
+        $sql = "insert into komen( nama_c, isi_c, video_c) VALUES ('$c_nama','$c_isi','$c_video')";
+        $result=mysqli_query($con, $sql);
+    }
 ?>
 <html lang="en">
 <head>
@@ -93,30 +103,37 @@
 		<div class="garishorizontal"  style="margin-top:50px;"></div>
                 <h2 class="category-title">Komentar</h2>
                    
-                <form class="form-horizontal" action="/" id="comment">
+                <form method="post" class="form-horizontal" action="?idv=<?php echo $idv; ?>&comment=1" >
                 	<div class="form-group">
+                            <input type="hidden" value="<?php echo $idv; ?>" class="form-control" id="idvideo" placeholder="Masukkan Nama" name="idvideo">
                         	<label class="control-label col-sm-1" for="Nama">Nama:</label>
                           	<div class="col-sm-4">
-                            		<input type="nama" class="form-control" id="nama" placeholder="Masukkan Nama" name="nama">
+                            		<input type="text" class="form-control" id="nama" placeholder="Masukkan Nama" name="nama">
                           	</div>
                        	</div>
                         <div class="form-group">
                         	<label class="control-label col-sm-1" for="komentar">Komentar:</label>
                           	<div class="col-sm-9">
-                            		<textarea class="form-control" rows="4" name="comment" form="komentar" placeholder="Masukkan Komentar"></textarea>
+                            		<textarea class="form-control" rows="4" name="comment" id="comment" placeholder="Masukkan Komentar"></textarea>
                           	</div>
                        	</div>
+                        <input type="submit" value="Kirim" class="btn btn-primary">
                   </form>
                         
                   <div class="garishorizontal"  style="margin-top:50px;"></div>
-                  <div style="margin-bottom:30px;">
-                   	<h4 style="color:#000;">User 1</h4>
-                        <p>Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1 Komentar 1</p>
-                  </div>
-                  <div style="margin-bottom:30px;">
-                    	<h4 style="color:#000;">User 2</h4>
-                        <p>Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2 Komentar 2</p>
-                  </div>
+                  <?php
+                        $query = "select * from komen where video_c = ".$idv;
+                        $result = mysqli_query($con, $query);
+                        while($komen = mysqli_fetch_assoc($result))
+                        {
+                  ?>
+                              <div style="margin-bottom:30px;">
+                               	<h4 style="color:#000;"><?php echo $komen['nama_c']; ?></h4>
+                                    <p><?php echo $komen['isi_c']; ?></p>
+                              </div>
+                  <?php
+                        }
+                  ?>
 		    
 		</section>
                 <aside class="sidebar col-sm-3">
