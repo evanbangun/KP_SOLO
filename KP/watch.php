@@ -40,7 +40,7 @@
 <body>
     <header class="site-header">
         
-        <nav class="navbar navbar-default" style="background-color:#404040">
+        <nav class="navbar navbar-default" style="background-color:#15286d">
 			<div class="container">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse">
 					<span class="sr-only">Toggle Navigation</span>
