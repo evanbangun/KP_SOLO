@@ -22,7 +22,7 @@
 </head>
 <body>
     <header class="site-header">  
-        <nav class="navbar navbar-default" style="background-color:#404040">
+        <nav class="navbar navbar-default" style="background-color: #15286d">
             <div class="container">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse">
                     <span class="sr-only">Toggle Navigation</span>
@@ -39,7 +39,7 @@
             </div>
         </nav>        
     </header>
-    <div class="bread_area" style="background-color:#e6e6e6; margin-bottom:20px;"> 
+    <div class="bread_area" style="background-color:#e6e6e6;"> 
     </div>   
     <main class="site-main category-main">
         <div class="container">
@@ -91,6 +91,9 @@
                     <ul><li><a href="kategori-list.php" title="">Lihat Semua Kategori</a></li></ul>
                 </div>
             </div>
+        </div>
+        <div class="container">
+           <!-- <div class="garishorizontal"></div> -->
             <h2 class="category-title">Recent Video</h2>
             <?php
                 $slide = 0;
@@ -106,8 +109,10 @@
                     $slide = 1;
                 }
             ?>
+            <!--
             </div>
             <div class="container">
+            -->
                 <!--<a class="prev" onclick="plusSlides(-1)">&#10094;</a>-->
                 <?php
                     $q=0;
@@ -173,6 +178,7 @@
             {
         ?>
                     <div class="container">
+                        <!--<div class="garishorizontal"></div>-->
                         <a href="kategori.php?idk=<?php echo $kategori['id_k']; ?>" title="Post">
                         <h2 class="category-title"><?php echo $kategori['nama_k']; ?></h2>
                         </a>
@@ -212,8 +218,6 @@
         ?>
     </main>
     <footer class="site-footer">
-        <div class="container">
-        </div>
         <div id="copyright">
             <div class="container">
                 <div class="row">
@@ -224,6 +228,7 @@
             </div>
         </div>        
     </footer>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     
