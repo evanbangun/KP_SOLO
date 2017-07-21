@@ -244,14 +244,14 @@ h2.section-title {text-align: center;color: #404040;}
 @media (min-width: 992px ) {.carousel-inner .active.left {left: -25%;}.carousel-inner .next {left: 25%;}.carousel-inner .prev {left: -25%;}}
 
 /* Footer */
-footer.site-footer {background: #e6e6e6;padding: 20px 0 0;width: 100%; float: left;}
+footer.site-footer {background: #e6e6e6;padding: 0 0 0;width: 100%; float: left;}
 footer.site-footer h4 {font-size: 17px;font-weight: 500;}
 footer.site-footer ul {padding-left: 0;margin-bottom: 20px;list-style: none;}
 footer.site-footer ul a {color: #666;font-size: 13px;}
 footer.site-footer p {font-size: 13px;}
 footer.site-footer p a {color: #666;}
 p.text {color: #666;}
-#copyright {background: #404040;color: #ccc;padding: 15px 0;font-size: 12px;margin-top: 20px;}
+#copyright {background: #15286d;color: #ccc;padding: 15px 0;font-size: 12px;margin-top: 20px;}
 #copyright p, #copyright ul {margin: 0;float: left;font-size: 12px;}
 #copyright a {color: #fff;font-size: 12px;}
 .site-footer li a:hover {color:#005FA6;}
