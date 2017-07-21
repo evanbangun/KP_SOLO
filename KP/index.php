@@ -109,11 +109,7 @@
                     $slide = 1;
                 }
             ?>
-            <!--
-            </div>
-            <div class="container">
-            -->
-                <!--<a class="prev" onclick="plusSlides(-1)">&#10094;</a>-->
+           
                 <?php
                     $q=0;
                     $i = 0;
