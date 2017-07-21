@@ -43,7 +43,6 @@
     <div class="bread_area" style="background-color:#e6e6e6; margin-bottom:20px;"> </div>   
     <main class="site-main category-main">
         <div class="container">
-            <div class="row">
             	<h2 class="category-title">Daftar Kategori</h2>
                 <kategori1>
                 	<ul>
@@ -63,10 +62,6 @@
                             <li><a href="kategori.php?idk=<?php echo $row['id_k'] ?>" title=""><?php echo $row['nama_k']; ?></a></li>
                     </ul>
                 </kategori1>
-                
-                
-                
-            </div>
         </div>
     </main>
     <footer class="site-footer">
