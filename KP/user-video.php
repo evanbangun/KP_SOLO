@@ -82,7 +82,7 @@
     }
     else
     {
-      $success = 2;
+      $success = 0;
     }
   }
 ?>
