@@ -486,5 +486,6 @@ ul.big li:nth-child(2n) {margin-left: 2%;}
 		background-color: #fff;
 		margin-top: 20px;
 		padding-top: 20px;
+		padding-bottom: 20px;
 	}
 }
