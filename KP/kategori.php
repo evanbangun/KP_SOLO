@@ -75,9 +75,7 @@
                                 <div>
                                 	<h3 class="media-heading"><a href="watch.php?idv=<?php echo $list['id_v']; ?>" title="Post Title"><?php $name=pathinfo($list['nama_v']); custom_echo($name['filename'], 25); ?></a></h3>
                                     <!-- <p>deskripsi video ( jika ada ).</p> -->
-                                    <div class="durbox">
-                                        <p id="vid<?php echo $i; ?>"></p>
-                                    </div>
+                                   
                                     <?php
                                         $query = "select * from user where id_u = $list[user_v]";
                                         $result3 = mysqli_query($con, $query);
@@ -101,52 +99,7 @@
     </main>
     <footer class="site-footer" style="position: fixed; bottom: 0;">
         <div class="container">
-        
-        <!--
-            <div class="row">
-                <div class="col-md-3 col-sm-6 fbox">
-                    <h4>COMPANY NAME</h4>
-                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam congue lectus diam, sit amet cursus massa efficitur sed. </p>
-                    <ul class="list-inline">
-                        <li><a href="#" title="Post"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" title="Post"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" title="Post"><i class="fa fa-linkedin"></i></a></li>                        
-                    </ul>
-                </div>
-                <div class="col-md-3 col-sm-6 fbox">
-                    <h4>SERVICES</h4>
-                    <ul class="big">
-                        <li><a href="#" title="">Title One</a></li>
-                        <li><a href="#" title="">Title Two</a></li>
-                        <li><a href="#" title="">Title Three</a></li>
-                        <li><a href="#" title="">Title Four</a></li>
-                        <li><a href="#" title="">Title Five</a></li>
-                        <li><a href="#" title="">Title Six</a></li>
-                        <li><a href="#" title="">Title Seven</a></li>
-                        <li><a href="#" title="">Title Eight</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 col-sm-6 fbox">
-                    <h4>CONTENT</h4>
-                    <ul class="big">
-                        <li><a href="#" title="">Title One</a></li>
-                        <li><a href="#" title="">Title Two</a></li>
-                        <li><a href="#" title="">Title Three</a></li>
-                        <li><a href="#" title="">Title Four</a></li>
-                        <li><a href="#" title="">Title Five</a></li>
-                        <li><a href="#" title="">Title Six</a></li>
-                        <li><a href="#" title="">Title Seven</a></li>
-                        <li><a href="#" title="">Title Eight</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 col-sm-6 fbox">
-                    <h4>CONTENT</h4>
-                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <p><a href="tel:+902222222222"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> +90 222 222 22 22</a></p>
-                    <p><a href="mailto:iletisim@agrisosgb.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> mail@awebsitename.com</a></p>
-                </div>
-            </div>
-        -->
+     
         </div>
         <div id="copyright">
             <div class="container">
@@ -154,24 +107,14 @@
                     <div class="col-md-4">
                         <p class="pull-left">&copy; 2017 Library Integrated Online Services (LIOS)</p>
                     </div>
-                    <!--
-                    <div class="col-md-8">
-                        <ul class="list-inline navbar-right">
-                            <li><a href="#" title="Post">HOME</a></li>
-                            <li><a href="#" title="Post">MENU ITEM</a></li>
-                            <li><a href="#" title="Post">MENU ITEM</a></li>
-                            <li><a href="#" title="Post">MENU ITEM</a></li>
-                            <li><a href="#" title="Post">MENU ITEM</a></li>
-                            <li><a href="#" title="Post">MENU ITEM</a></li>
-                        </ul>
-                    </div>
-                	-->
+                  
                 </div>
             </div>
         </div>        
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <!--
     <script>
         var vid = document.getElementsByClassName("vid");
         for (i = 0; i < <?php echo $i ?>; i++)
@@ -208,7 +151,8 @@
             var j = i + 1;
             document.getElementById("vid"+j).innerHTML = durasi;
         }
-    </script> 
+    </script>
+    -->
     <?php
         function custom_echo($x, $length)
         {
