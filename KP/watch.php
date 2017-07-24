@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <?php
+    session_start();
     include 'connection.php';
-
     $idv = $_GET['idv'];
     $query = "update video set lihat_v=lihat_v+1 where id_v=".$idv;
     $result = mysqli_query($con, $query);
@@ -17,6 +18,13 @@
         $c_isi=$_POST['comment'];
         $sql = "insert into komen( nama_c, isi_c, video_c) VALUES ('$c_nama','$c_isi','$c_video')";
         $result=mysqli_query($con, $sql);
+    }
+
+    $delcom = isset($_GET['delcom']) ? $_GET['delcom']:"";
+    if($delcom != "")
+    {
+        $sql = "delete from komen where id_c = ". $delcom;
+        $result=mysqli_query($con, $sql);   
     }
 ?>
 <html lang="en">
@@ -114,7 +122,14 @@
                               <div style="margin-bottom:20px;">
                                	    <h4 style="color:#000;"><?php echo $komen['nama_c']; ?></h4>
                                     <p><?php echo $komen['isi_c']; ?></p>
-                                    <button id="delcomment" style="background-color:#ddd; color: #000; float: right; margin-right: 50px;">Hapus komentar ini</button>
+                                    <?php
+                                    if(isset($_SESSION['user']) && $_SESSION['user'] == "admin1")
+                                    {
+                                    ?>
+                                        <a href="?idv=<?php echo $idv; ?>&delcom=<?php echo $komen['id_c']; ?>" ><button id="delcomment" style="background-color:#ddd; color: #000; float: right; margin-right: 50px;">Hapus komentar ini</button></a>  
+                                    <?php
+                                    }
+                                    ?>
                                     <center><div class="garishorizontal2"></div></center>
                               </div>
                   <?php

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+    session_start();
     include 'connection.php';
 ?>
 <html lang="en">
