@@ -133,9 +133,6 @@
                                         <source src="videos/<?php echo $katevideo['nama_k']; ?>/<?php echo $row['nama_v']; ?>" type="video/mp4">
                                     </video>
                                 </a>
-                                <div class="durbox">
-                                    <p id="vid<?php echo $i; ?>"></p>
-                                </div>
                                 <a href="watch.php?idv=<?php echo $row['id_v']; ?>" title="Post">
                                     <h4><?php $name=pathinfo($row['nama_v']); custom_echo($name['filename'], 30); ?></h4>
                                 </a>
@@ -192,9 +189,7 @@
                                     <source src="videos/<?php echo $kategori['nama_k']; ?>/<?php echo $video['nama_v']; ?>" type="video/mp4">
                                 </video>
                                 </a>
-                                <div class="durbox">
-                                    <p id="vid<?php echo $i; ?>"></p>
-                                </div>
+                                
                             </div>
                             <a href="watch.php?idv=<?php echo $video['id_v']; ?>" title="Post">
                             <h4><?php $name=pathinfo($video['nama_v']); custom_echo($name['filename'], 30); ?></h4></a>
@@ -256,7 +251,7 @@
       dots[slideIndex-1].className += " active";
     }
     </script>
-    
+    <!--
     <script>
         var vid = document.getElementsByClassName("vid");
         for (i = 0; i < <?php echo $i ?>; i++)
@@ -294,7 +289,7 @@
             document.getElementById("vid"+j).innerHTML = durasi;
         }
     </script> 
-
+    -->
     <?php
         function custom_echo($x, $length)
         {
