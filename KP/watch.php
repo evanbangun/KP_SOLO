@@ -111,10 +111,11 @@
                         while($komen = mysqli_fetch_assoc($result))
                         {
                   ?>
-                              <div style="margin-bottom:30px;">
-                               	<h4 style="color:#000;"><?php echo $komen['nama_c']; ?></h4>
+                              <div style="margin-bottom:20px;">
+                               	    <h4 style="color:#000;"><?php echo $komen['nama_c']; ?></h4>
                                     <p><?php echo $komen['isi_c']; ?></p>
-                                    <span class="close">&times;</span>
+                                    <button id="delcomment" style="background-color:#ddd; color: #000; float: right; margin-right: 50px;">Hapus komentar ini</button>
+                                    <center><div class="garishorizontal2"></div></center>
                               </div>
                   <?php
                         }
