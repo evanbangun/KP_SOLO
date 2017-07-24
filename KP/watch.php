@@ -58,23 +58,7 @@
 		</nav>        
     </header>
     <div class="bread_area" style="background-color:#e6e6e6; margin-bottom:20px;"> 
-    	<!--	<div class="collapse navbar-collapse id="bs-navbar-collapse"  style="margin-left:6%">
-                    <ul class="nav navbar-nav main-navbar-nav">
-                        <li class="active"><a href="index.html" title="">HOME</a></li>
-                        <li class="dropdown">
-                            <a href="#" title="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">DROPDOWN MENU <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" title="">SUB MENU 1</a></li>
-                                <li><a href="#" title="">SUB MENU 2</a></li>
-                                <li><a href="#" title="">SUB MENU 3</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="page.html" title="">PAGE</a></li>
-                        <li><a href="category.html" title="">CATEGORY</a></li>
-                        <li><a href="#" title="">MENU ITEM</a></li>
-                        <li><a href="#" title="">MENU ITEM</a></li>
-                    </ul>                           
-                </div> -->
+    	
     </div>   
     <main class="site-main category-main">
         <div class="container">
@@ -130,6 +114,7 @@
                               <div style="margin-bottom:30px;">
                                	<h4 style="color:#000;"><?php echo $komen['nama_c']; ?></h4>
                                     <p><?php echo $komen['isi_c']; ?></p>
+                                    <span class="close">&times;</span>
                               </div>
                   <?php
                         }
