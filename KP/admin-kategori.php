@@ -49,7 +49,7 @@
     $sql = "select * from kategori where nama_k = '$tk_nama'";
     $result=mysqli_query($con, $sql);
     
-    if($row = mysqli_fetch_assoc($result))
+    if($row = mysqli_fetch_assoc($result) && mkdir("videos/$tk_nama"))
     {
       $success=0;
     }
@@ -57,7 +57,6 @@
     {
       $sql = "insert into kategori(nama_k) VALUES ('$tk_nama')";
       $result=mysqli_query($con, $sql);
-      mkdir("videos/$tk_nama");
       $success = 1;
     }
   }
